@@ -1,0 +1,28 @@
+(defpackage :lecture-7
+  (:use :cl)
+  (:import-from :model :register :registry)
+  (:export :main)
+  (:documentation "Main package to be loaded."))
+
+(in-package :lecture-7)
+
+(defun main ()
+  (format t "~&Welcome to the Student Directory:~%")
+  (format t "(A)dd Student~%")
+  (format t "(B)rowse all students~%")
+  (format t "(C)all by student ID~%")
+  (format t "(Q)uit~%")
+  (format t "Your input: ")
+  (let ((in (read-line)))
+    (cond ((string-equal "a" in)
+	   (register)
+	   (main))
+	  ((string-equal "b" in)
+	   (registry)
+	   (main))
+	  ((string-equal "c" in)
+	   (format t "~&Student ID: ")
+	   (let ((id (parse-integer (read-line))))
+	     (registry id)))
+	  (t  (format t "~&Goodbye")))))
+	  
