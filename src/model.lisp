@@ -18,7 +18,7 @@
 	  (format t "Full Name? ")
 	  (read-line)))
   (SID (incf *last-sid*))
-  (modules nil))
+  (modules nil)) ; may make this an array containing module ID and Grade.
 
 (defstruct (node (:print-function (lambda (n s d)
 				    (declare (ignore d))
@@ -26,6 +26,11 @@
   elt
   (l nil)
   (r nil))
+
+(defstruct modules
+  name
+  mid
+  lecturer)
 
 (defparameter *students* nil
   "List of Students.")
@@ -35,6 +40,9 @@
 
 (defparameter *student-bst* nil
   "Binary Search Tree used for storing students.")
+
+(defparameter *modules* nil
+  "Database for Modules - not sure if this should be an array as yet.")
 
 ;;; FUNCTIONS
 
@@ -69,6 +77,8 @@ If the student ID is provided, return only that student information."
 		 (let ((id (read)))
 		   (registry id)))
 		(t  nil)))))
+
+
 
 (defun display-students ()
   (bst-traverse #'print
