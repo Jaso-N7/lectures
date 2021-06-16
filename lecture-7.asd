@@ -6,8 +6,7 @@
   :serial t
   :components ((:module "src"
                 :components
-                ((:file "utils")
-		 (:file "model")
+                ((:file "model")
 		 (:file "main"))))
 
   :description "Student Registry")

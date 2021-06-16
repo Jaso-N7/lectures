@@ -1,6 +1,5 @@
 (defpackage :model
   (:use :cl)
-  (:import-from :utils :bst-insert :bst-find :bst-traverse)
   (:export :register :registry)
   (:documentation "Model to support 7.8 Practical Session."))
 
@@ -20,6 +19,13 @@
 	  (read)))
   (SID (incf *last-sid*))
   (modules nil))
+
+(defstruct (node (:print-function (lambda (n s d)
+				    (declare (ignore d))
+				    (format s "#<~A>" (node-elt n)))))
+  elt
+  (l nil)
+  (r nil))
 
 (defparameter *students* nil
   "List of Students.")
@@ -73,3 +79,37 @@ If the student ID is provided, return only that student information."
 (defun find-student (sid)
   (bst-find sid *student-bst* #'<))
 	     
+(defun bst-insert (obj bst <)
+  "Insert an object OBJ into the provided Binary Search Tree BST;
+Otherwise create a new BST."
+  (if (null bst)
+      (make-node :elt obj)
+      (let ((elt (node-elt bst)))
+	(cond ((eql obj elt) 
+	       bst)
+	      ((funcall < obj elt)
+	       (make-node :elt elt
+			  :l   (bst-insert obj (node-l bst) <)
+			  :r   (node-r bst)))
+	      (t  (make-node :elt elt
+			     :l (node-l bst)
+			     :r (bst-insert obj (node-r bst) <)))))))
+
+(defun bst-find (obj bst <)
+  "Find Object OBJ in the Binary Search Tree BST.
+Return NIL if not found."
+  (if (null bst)
+      nil
+      (let ((elt (node-elt bst)))
+	(cond ((eql obj elt)
+	       bst)
+	      ((funcall < obj elt)
+	       (bst-find obj (node-l bst) <))
+	      (t  (bst-find obj (node-r bst) <))))))
+
+(defun bst-traverse (fn bst)
+  "Binary Search Tree traversal."
+  (when bst
+    (bst-traverse fn (node-l bst))
+    (funcall fn (node-elt bst))
+    (bst-traverse fn (node-r bst))))
