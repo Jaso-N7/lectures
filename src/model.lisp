@@ -16,7 +16,7 @@
 			       (student-modules s)))))
   (name (progn
 	  (format t "Full Name? ")
-	  (read)))
+	  (read-line)))
   (SID (incf *last-sid*))
   (modules nil))
 
@@ -76,11 +76,10 @@ If the student ID is provided, return only that student information."
 		*student-bst*))
     
 (defun find-student (sid)
-  (dolist (s *students*)
-    (if (= sid (student-sid s))
-	(print s)
-	(format t "~&Student ID ~A does not exist."
-		sid))))
+  (car (member sid *students*
+	       :test #'=
+	       :key #'(lambda (s)
+			(student-sid s)))))
 	     
 (defun bst-insert (obj bst <)
   "Insert an object OBJ into the provided Binary Search Tree BST;
