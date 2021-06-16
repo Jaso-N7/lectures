@@ -32,9 +32,6 @@
   mid
   lecturer)
 
-(defparameter *students* nil
-  "List of Students.")
-
 (defparameter *last-sid* 0
   "Keeps track of last Student ID used.")
 
@@ -49,14 +46,15 @@
 (defun register ()
   "Create a registry of new students and sets *STUDENTS*,
 as a list of structures of type STUDENT."
-  (let ((pupil (make-student)))
+  (let ((students ())
+	(student (make-student)))
     (format t "Continue (y/n)? ")
     (let ((yn (read-line)))
       (cond ((string= "y" yn)
-	     (push pupil *students*)
+	     (push student students)
 	     (register))
 	    ((string= "n" yn)
-	     (dolist (s *students*)
+	     (dolist (s students)
 	       (setf *student-bst* (bst-insert s *student-bst* #'string<)))
 	     (display-students))
 	    (t  (format t "~&Unknown input, returning to main menu."))))))
