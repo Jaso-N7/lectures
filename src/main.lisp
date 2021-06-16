@@ -23,6 +23,7 @@
 	  ((string-equal "c" in)
 	   (format t "~&Student ID: ")
 	   (let ((id (parse-integer (read-line))))
-	     (registry id)))
+	     (registry id)
+	     (main)))
 	  (t  (format t "~&Goodbye")))))
 	  
