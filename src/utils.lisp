@@ -1,5 +1,6 @@
 (defpackage :utils
   (:use :cl)
+  (:export :bst-insert :bst-find :bst-traverse)
   (:documentation "Supporting utility functions"))
 
 (in-package :utils)

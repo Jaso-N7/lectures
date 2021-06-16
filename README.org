@@ -1,8 +1,17 @@
+
 * Lecture-7  - Student Registry
+
+Based on [[https://nicklevine.org/declarative/lectures/lectures/lecture-7.html][Week 7]] Lecture series from [[https://nicklevine.org][Nick Levine]]'s lecture notes.
+7.8 Practical session / Suggested activity.
 
 ** Usage
 
+Calling ```(lecture-7:main)``` should be enough to get you started.
+
 ** Installation
+
+```(ql:quickload "lecture-7")``` OR
+```(asdf:load-system :lecture-7)```
 
 ** Author
 
