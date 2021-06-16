@@ -60,7 +60,7 @@ If the student ID is provided, return only that student information."
       (find-student sid)
       (let ((resp nil)
 	    (id 0))
-	(format t "View (a)ll students, search by (I)D or go (b)ack (a/i/b)? ")
+	(format t "~&View (a)ll students, search by (I)D or go (b)ack (a/i/b)? ")
 	(setf resp (read-line))
 	  (cond ((string-equal "a" resp)
 		 (display-students)
@@ -72,12 +72,15 @@ If the student ID is provided, return only that student information."
 		(t  nil)))))
 
 (defun display-students ()
-  (bst-traverse #'(lambda (s)
-		    (format t "~A~%" s))
+  (bst-traverse #'print
 		*student-bst*))
     
 (defun find-student (sid)
-  (bst-find sid *student-bst* #'<))
+  (dolist (s *students*)
+    (if (= sid (student-sid s))
+	(print s)
+	(format t "~&Student ID ~A does not exist."
+		sid))))
 	     
 (defun bst-insert (obj bst <)
   "Insert an object OBJ into the provided Binary Search Tree BST;
@@ -87,7 +90,7 @@ Otherwise create a new BST."
       (let ((elt (node-elt bst)))
 	(cond ((eql obj elt) 
 	       bst)
-	      ((funcall < obj elt)
+	      ((funcall < (student-name obj) (student-name elt))
 	       (make-node :elt elt
 			  :l   (bst-insert obj (node-l bst) <)
 			  :r   (node-r bst)))
@@ -103,7 +106,7 @@ Return NIL if not found."
       (let ((elt (node-elt bst)))
 	(cond ((eql obj elt)
 	       bst)
-	      ((funcall < obj elt)
+	      ((funcall < (student-name obj) (student-name elt))
 	       (bst-find obj (node-l bst) <))
 	      (t  (bst-find obj (node-r bst) <))))))
 
