@@ -58,8 +58,7 @@ as a list of structures of type STUDENT."
 If the student ID is provided, return only that student information."
   (if (/= sid 0)
       (find-student sid)
-      (let ((resp nil)
-	    (id 0))
+      (let ((resp nil))
 	(format t "~&View (a)ll students, search by (I)D or go (b)ack (a/i/b)? ")
 	(setf resp (read-line))
 	  (cond ((string-equal "a" resp)
@@ -67,8 +66,8 @@ If the student ID is provided, return only that student information."
 		 (registry))
 		((string-equal "i" resp)
 		 (format t "Student ID? ")
-		 (setf id (parse-integer (read-line)))
-		 (registry id))
+		 (let ((id (read)))
+		   (registry id)))
 		(t  nil)))))
 
 (defun display-students ()
@@ -76,10 +75,12 @@ If the student ID is provided, return only that student information."
 		*student-bst*))
     
 (defun find-student (sid)
-  (car (member sid *students*
-	       :test #'=
-	       :key #'(lambda (s)
-			(student-sid s)))))
+  "Retrieve student information with a given SID."
+  (bst-traverse #'(lambda (s)
+		    (when (= sid (student-sid s))
+		      (print s)))
+		*student-bst*))
+
 	     
 (defun bst-insert (obj bst <)
   "Insert an object OBJ into the provided Binary Search Tree BST;
