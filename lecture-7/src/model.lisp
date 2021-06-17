@@ -27,10 +27,20 @@
   (l nil)
   (r nil))
 
-(defstruct modules
-  name
-  mid
-  lecturer)
+(defstruct (modules (:print-function (lambda (m stream depth)
+				       (declare (ignore depth))
+				       (format stream "#<MID: ~A, MODULE: ~A, LECTURER: ~A>"
+					       (modules-mid m)
+					       (modules-name m)
+					       (modules-lecturer m)))))
+  (name (progn
+	  (format t "Module Name? ")
+	  (read-line)))
+  (mid (incf *last-mid*))
+  ;; We are assuming one(1) lecturer / module
+  (lecturer (progn
+	      (format t "Module Lecturer? ")
+	      (read-line))))
 
 (defparameter *last-sid* 0
   "Keeps track of last Student ID used.")
