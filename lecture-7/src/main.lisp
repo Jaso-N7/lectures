@@ -11,6 +11,8 @@
   (format t "(A)dd Student~%")
   (format t "(B)rowse all students~%")
   (format t "(C)all by student ID~%")
+  (format t "(D)efine Modules~%")
+  (format t "(E)nroll students to Modules~%")
   (format t "(Q)uit~%")
   (format t "Your input: ")
   (let ((in (read-line)))
@@ -25,5 +27,13 @@
 	   (let ((id (parse-integer (read-line))))
 	     (registry id)
 	     (main)))
-	  (t  (format t "~&Goodbye")))))
+	  ((string-equal "d" in)
+	   ;; call module function
+	   (error "Not yet implemented"))
+	  ((string-equal "e" in)
+	   (error "Not yet implemented"))
+	  ((string-equal "q" in)
+	   (format t "~&Goodbye"))
+	  (t  (format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
+	      (main)))))
 	  
