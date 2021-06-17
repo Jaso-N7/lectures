@@ -35,6 +35,9 @@
 (defparameter *last-sid* 0
   "Keeps track of last Student ID used.")
 
+(defparameter *last-mid* 0
+  "Keeps track of last Module ID used.")
+
 (defparameter *student-bst* nil
   "Binary Search Tree used for storing students.")
 
