@@ -10,7 +10,7 @@
 (defstruct (student (:print-function 
 		     (lambda (s stream depth)
 		       (declare (ignore depth))
-		       (format stream "#<ID: ~A, Student: ~A, Module(s): ~A>"
+		       (format stream "#<ID: ~A, STUDENT: ~A, MODULE(S): ~A>"
 			       (student-sid s)
 			       (student-name s)
 			       (student-modules s)))))
