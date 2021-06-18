@@ -1,6 +1,6 @@
 (defpackage :lecture-7
   (:use :cl)
-  (:import-from :model :register :registry)
+  (:import-from :model :register :registry :new-module)
   (:export :main)
   (:documentation "Main package to be loaded."))
 
@@ -28,8 +28,8 @@
 	     (registry id)
 	     (main)))
 	  ((string-equal "d" in)
-	   ;; call module function
-	   (error "Not yet implemented"))
+	   (new-module)
+	   (main))
 	  ((string-equal "e" in)
 	   (error "Not yet implemented"))
 	  ((string-equal "q" in)
@@ -37,3 +37,15 @@
 	  (t  (format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
 	      (main)))))
 	  
+(defun enroll-students ()
+  "Enroll students to modules."
+  (format t "~&Enroll by ID, Un-enrolled only, or cancel?~%(i/u/x): ")
+  (let ((choice (read-line)))
+    (cond ((char= #\i (char choice 0))
+	   (error "Enroll by ID not yet implemented."))
+	  ((char= #\u (char choice 0))
+	   (error "Un-enrolled only not yet implemented."))
+	  ((char= #\x (char choice 0))
+	   (format t "~&Returning to main screen."))
+	  (t  (format t "~&Unknown choice")
+	      (enroll-students)))))
