@@ -18,7 +18,7 @@
 	  (format t "Full Name? ")
 	  (read-line)))
   (SID (incf *last-sid*))
-  (modules nil)) ; may make this an array containing module ID and Grade.
+  (modules nil)) ; This may hold a list of MODULES
 
 (defstruct (node (:print-function (lambda (n s d)
 				    (declare (ignore d))
@@ -105,6 +105,8 @@ If the student ID is provided, return only that student information."
 			*modules*))))))))
 
  
+;(defun enroll-student-by-id ()
+  
 
 ;;; FUNCTIONS - UTILITY
 
@@ -116,7 +118,7 @@ If the student ID is provided, return only that student information."
   "Retrieve student information with a given SID."
   (bst-traverse #'(lambda (s)
 		    (when (= sid (student-sid s))
-		      (print s)))
+		      (princ s)))
 		*student-bst*))
 
 (defun bst-insert (obj bst <)
