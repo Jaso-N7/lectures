@@ -1,6 +1,6 @@
 (defpackage :model
   (:use :cl)
-  (:export :register :registry)
+  (:export :register :registry :new-module)
   (:documentation "Model to support 7.8 Practical Session."))
 
 (in-package :model)
@@ -33,14 +33,13 @@
 					       (modules-mid m)
 					       (modules-name m)
 					       (modules-lecturer m)))))
-  (name (progn
-	  (format t "Module Name? ")
-	  (read-line)))
+  name 
   (mid (incf *last-mid*))
-  ;; We are assuming one(1) lecturer / module
-  (lecturer (progn
-	      (format t "Module Lecturer? ")
-	      (read-line))))
+
+  lecturer)				; We are assuming one(1) lecturer / module
+
+(defparameter *students* nil
+  "List of students. Used as a temporary stack.")
 
 (defparameter *last-sid* 0
   "Keeps track of last Student ID used.")
@@ -54,23 +53,22 @@
 (defparameter *modules* nil
   "Database for Modules - not sure if this should be an array as yet.")
 
-;;; FUNCTIONS
+
+;;; FUNCTIONS - PROTOCOLS
 
 (defun register ()
   "Create a registry of new students and sets *STUDENTS*,
 as a list of structures of type STUDENT."
-  (let ((students ())
-	(student (make-student)))
-    (format t "Continue (y/n)? ")
-    (let ((yn (read-line)))
-      (cond ((string= "y" yn)
-	     (push student students)
-	     (register))
-	    ((string= "n" yn)
-	     (dolist (s students)
-	       (setf *student-bst* (bst-insert s *student-bst* #'string<)))
-	     (display-students))
-	    (t  (format t "~&Unknown input, returning to main menu."))))))
+  (format t "Continue (y/n)? ")
+  (let ((yn (read-line)))
+    (cond ((string= "y" yn)
+	   (push (make-student) *students*)
+	   (register))
+	  ((string= "n" yn)
+	   (dolist (s *students*)
+	     (setf *student-bst* (bst-insert s *student-bst* #'string<)))
+	   (display-students))
+	  (t  (format t "~&Unknown input, returning to main menu.")))))
 
 (defun registry (&optional (sid 0))
   "Returns the list of students, sorted alphabetically.
@@ -89,7 +87,39 @@ If the student ID is provided, return only that student information."
 		   (registry id)))
 		(t  nil)))))
 
+(defun new-module ()
+  "Create new modules."
+  (format t "~&You can enter ten(10) modules in batch,~%or type 'x' when finished.~%")
+  (dotimes (m 10 (princ *modules*))
+    (format t "Module Name? ")
+    (let ((name (read-line)))
+      (if (char= #\x (char name 0))
+	  (return (princ *modules*))
+	  (progn
+	    (format t "Lecturer? ")
+	    (let ((teach (read-line)))
+	      (if (char= #\x (char teach 0))
+		  (return (princ *modules*))
+		  (push (make-modules :name name
+				      :lecturer teach)
+			*modules*))))))))
 
+
+(defun enroll-students ()
+  "Enroll students to modules."
+  (format t "~&Enroll by ID, Un-enrolled only, or cancel?~%(i/u/x): ")
+  (let ((choice (read-line)))
+    (cond ((char= #\i (char choice 0))
+	   (error "Enroll by ID not yet implemented."))
+	  ((char= #\u (char choice 0))
+	   (error "Un-enrolled only not yet implemented."))
+	  ((char= #\x (char choice 0))
+	   (format t "~&Returning to main screen."))
+	  (t  (format t "~&Unknown choice")
+	      (enroll-students)))))
+  
+
+;;; FUNCTIONS
 
 (defun display-students ()
   (bst-traverse #'print
@@ -102,7 +132,6 @@ If the student ID is provided, return only that student information."
 		      (print s)))
 		*student-bst*))
 
-	     
 (defun bst-insert (obj bst <)
   "Insert an object OBJ into the provided Binary Search Tree BST;
 Otherwise create a new BST."
