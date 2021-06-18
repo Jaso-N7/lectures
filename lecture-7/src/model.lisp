@@ -104,22 +104,9 @@ If the student ID is provided, return only that student information."
 				      :lecturer teach)
 			*modules*))))))))
 
+ 
 
-(defun enroll-students ()
-  "Enroll students to modules."
-  (format t "~&Enroll by ID, Un-enrolled only, or cancel?~%(i/u/x): ")
-  (let ((choice (read-line)))
-    (cond ((char= #\i (char choice 0))
-	   (error "Enroll by ID not yet implemented."))
-	  ((char= #\u (char choice 0))
-	   (error "Un-enrolled only not yet implemented."))
-	  ((char= #\x (char choice 0))
-	   (format t "~&Returning to main screen."))
-	  (t  (format t "~&Unknown choice")
-	      (enroll-students)))))
-  
-
-;;; FUNCTIONS
+;;; FUNCTIONS - UTILITY
 
 (defun display-students ()
   (bst-traverse #'print
