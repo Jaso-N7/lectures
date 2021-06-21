@@ -4,9 +4,29 @@
 
 (in-package :lecture-8)
 
+;;; DATA
+
 (defparameter *student-table*
   (make-hash-table :test #'equal)
   "Hash Table containing Students Name, ID and Modules.")
+
+(defstruct (modules (:print-function
+		     (lambda (m stream depth)
+		       (declare (ignore depth))
+		       (format stream "#<NAME: ~A, LECTURER: ~A, GRADE: ~A>"
+			       (modules-name m)
+			       (modules-lecturer m)
+			       (modules-grade m)))))
+  (name (progn
+	  (format t "Module Name? ")
+	  (read-line)))
+  (lecturer (progn
+	      (format t "Lecturer? ")
+	      (read-line)))
+  (grade nil))
+
+;;; FUNCTIONS
+
 
 (defun main ()
   "Starting point of the application."
