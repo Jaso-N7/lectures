@@ -10,6 +10,18 @@
   (make-hash-table :test #'equal)
   "Hash Table containing Students Name, ID and Modules.")
 
+(defparameter *last-sid* 0
+  "Keeps track of the last student ID.")
+
+(defstruct (students (:print-function
+		      (lambda (s stream depth)
+			(declare (ignore depth))
+			(format stream "#<SID: ~A, MODULES: ~A>"
+			(students-sid s)
+			(students-modules s)))))
+  (sid (incf *last-sid*))
+  (modules nil))
+
 (defstruct (modules (:print-function
 		     (lambda (m stream depth)
 		       (declare (ignore depth))
