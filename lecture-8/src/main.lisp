@@ -48,7 +48,8 @@
   "Store student records."
   (format t "~&Student Name? ")
   (let ((name (read-line)))
-    (setf (gethash name *student-table*)
+    (setf (gethash (string-capitalize (string-downcase name))
+		   *student-table*)
 	  (make-students))
     (format t "Add more (y/n)? ")
     (let ((yn (read-line)))
