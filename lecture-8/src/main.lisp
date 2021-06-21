@@ -64,7 +64,10 @@
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
-  (error "Not yet implemented"))
+  (let ((info (gethash name *student-table*)))
+    (if info
+	(format t "~&NAME: ~A, ~A~%" name info)
+	(format t "~&No student record found."))))
 
 (defun delete-student (name)
   "Delete the record of the named student."
