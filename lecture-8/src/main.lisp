@@ -46,7 +46,10 @@
 
 (defun register-student ()
   "Store student records."
-  (error "Not yet implemented"))
+  (format t "~&Student Name? ")
+  (let ((name (read-line)))
+    (setf (gethash name *student-table*)
+	  (make-students))))
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
