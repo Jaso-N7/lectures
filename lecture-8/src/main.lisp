@@ -71,7 +71,13 @@
 
 (defun delete-student (name)
   "Delete the record of the named student."
-  (error "Not yet implemented."))
+  (let ((info (gethash name *student-table*)))
+    (cond (info
+	   (remhash name *student-table*)
+	   (format t "~&~A successfully deleted." name))
+	  (t
+	   (format t "~&No record found, confirm spelling.~%Nothing deleted.")))))
+	
 
 (defun un-enrolled-students ()
   "Return the SID of any student who hasn't attempted any modules at all."
