@@ -49,7 +49,11 @@
   (format t "~&Student Name? ")
   (let ((name (read-line)))
     (setf (gethash name *student-table*)
-	  (make-students))))
+	  (make-students))
+    (format t "Add more (y/n)? ")
+    (let ((yn (read-line)))
+      (unless (char= (char yn 0) #\n)
+	(register-student)))))
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
