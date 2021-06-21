@@ -55,6 +55,13 @@
       (unless (char= (char yn 0) #\n)
 	(register-student)))))
 
+(defun view-students ()
+  "View all students registered so far."
+  (maphash #'(lambda (k v)
+	       (format t "~&NAME: ~A, ~A"
+		       k v))
+	   *student-table*))
+
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
   (error "Not yet implemented"))
