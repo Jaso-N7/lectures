@@ -27,7 +27,7 @@
 				(students-modules s)))))
   (name nil)
   (sid (incf *last-sid*))
-  (modules nil))
+  (modules nil)) ; modules will be stored as hash tables
 
 (defstruct (modules (:print-function
 		     (lambda (m stream depth)
@@ -46,6 +46,12 @@
 	      (read-line)))
   (grade nil))
 
+
+;;; UTILITIES
+
+(defun normalize-name (name)
+  (string-capitalize (string-downcase name)))
+
 ;;; FUNCTIONS
 
 
@@ -56,8 +62,7 @@
 (defun register-students ()
   "Store student records."
   (format t "~&Student Name? ")
-  (let* ((name (read-line))
-	 (proname (string-capitalize (string-downcase name))))
+  (let ((proname (normalize-name (read-line))))
     (setf (gethash proname *student-table*)
 	  (make-students :name proname))
     (format t "Add more (y/n)? ")
@@ -75,7 +80,7 @@
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
-  (let* ((proname (string-capitalize (string-downcase name)))
+  (let* ((proname (normalize-name (read-line)))
 	 (info (gethash proname *student-table*)))
     (if info
 	(format t "~&~A~%" info)
@@ -83,7 +88,7 @@
 
 (defun delete-student (name)
   "Delete the record of the named student."
-  (let* ((proname (string-capitalize (string-downcase name)))
+  (let* ((proname (normalize-name (read-line)))
 	 (info (gethash proname *student-table*)))
     (cond (info
 	   (remhash proname *student-table*)
