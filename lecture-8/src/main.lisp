@@ -55,10 +55,10 @@
 (defun register-students ()
   "Store student records."
   (format t "~&Student Name? ")
-  (let ((name (read-line)))
-    (setf (gethash (string-capitalize (string-downcase name))
-		   *student-table*)
-	  (make-students :name name))
+  (let* ((name (read-line))
+	 (proname (string-capitalize (string-downcase name))))
+    (setf (gethash proname *student-table*)
+	  (make-students :name proname))
     (format t "Add more (y/n)? ")
     (let ((yn (read-line)))
       (if (char= (char yn 0) #\n)
@@ -74,17 +74,19 @@
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
-  (let ((info (gethash name *student-table*)))
+  (let* ((proname (string-capitalize (string-downcase name)))
+	 (info (gethash proname *student-table*)))
     (if info
 	(format t "~&~A~%" info)
 	(format t "~&No student record found."))))
 
 (defun delete-student (name)
   "Delete the record of the named student."
-  (let ((info (gethash name *student-table*)))
+  (let* ((proname (string-capitalize (string-downcase name)))
+	 (info (gethash proname *student-table*)))
     (cond (info
-	   (remhash name *student-table*)
-	   (format t "~&~A successfully deleted." name))
+	   (remhash proname *student-table*)
+	   (format t "~&~A successfully deleted." proname))
 	  (t
 	   (format t "~&No record found, confirm spelling.~%Nothing deleted.")))))
 
