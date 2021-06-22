@@ -13,6 +13,11 @@
 (defparameter *last-sid* 0
   "Keeps track of the last student ID.")
 
+(defparameter *module-table*
+  (make-hash-table :test #'equal)
+  "Keep track of modules.")
+
+
 (defstruct (students (:print-function
 		      (lambda (s stream depth)
 			(declare (ignore depth))
@@ -78,7 +83,6 @@
 	   (format t "~&~A successfully deleted." name))
 	  (t
 	   (format t "~&No record found, confirm spelling.~%Nothing deleted.")))))
-	
 
 (defun un-enrolled-students ()
   "Return the SID of any student who hasn't attempted any modules at all."
@@ -86,7 +90,22 @@
 
 (defun create-modules ()
   "Create the modules for students to enroll."
-  (error "Not yet implemented."))
+  (format t "~&Module ID? ")
+  (let ((mid (read-line)))
+    (setf (gethash mid *module-table*)
+	  (make-modules))
+    (format t "~&Add more (y/n)? ")
+    (let ((yn (read-line)))
+      (if (string= yn "n")
+	  (view-modules)
+	  (create-modules)))))
+
+(defun view-modules ()
+  "Display all modules in the *MODULE-TABLE*"
+  (maphash #'(lambda (k v)
+	       (format t "~&MID: ~A, ~A"
+		       k v))
+	   *module-table*))
 
 (defun enroll-students ()
   "Enroll students to modules."
