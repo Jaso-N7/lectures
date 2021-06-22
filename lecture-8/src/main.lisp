@@ -32,7 +32,8 @@
 (defstruct (modules (:print-function
 		     (lambda (m stream depth)
 		       (declare (ignore depth))
-		       (format stream "#<NAME: ~A, LECTURER: ~A, GRADE: ~A>"
+		       (format stream "#<MID: ~A, NAME: ~A, LECTURER: ~A, GRADE: ~A>"
+			       (modules-mid m)
 			       (modules-name m)
 			       (modules-lecturer m)
 			       (modules-grade m)))))
@@ -99,7 +100,7 @@
   (format t "~&Module ID? ")
   (let ((mid (read-line)))
     (setf (gethash mid *module-table*)
-	  (make-modules))
+	  (make-modules :mid mid))
     (format t "~&Add more (y/n)? ")
     (let ((yn (read-line)))
       (if (string= yn "n")
