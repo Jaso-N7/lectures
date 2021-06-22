@@ -137,3 +137,22 @@ Returns the table of Students."
       (if (string= resp "n")
 	  (view-students)
 	  (enroll-students-aux mid)))))
+
+(defun record-marks ()
+  "Recording marks for modules which students have already attempted."
+  (error "Not yet implemented."))
+
+(defun total-marks ()
+  "Use REDUCE to find the total number of marks over all modules attempted by each student and hence the total marks obtained by the student cohort"
+  (error "Not yet implemented."))
+
+(defun avg-marks ()
+  "count how many modules were attempted by the cohort, and hence give the average mark"
+  (error "Not yet implemented."))
+
+
+#|
+!!! TODO: As before, write functions to name the three students who have the highest marks, or to spot which lecturer fails most of their students.
+
+Use return-from in a function to return the SID of any student who hasn't attmpted any modules at all. 
+|#
