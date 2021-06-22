@@ -109,8 +109,8 @@
 (defun view-modules ()
   "Display all modules in the *MODULE-TABLE*"
   (maphash #'(lambda (k v)
-	       (format t "~&MID: ~A, ~A"
-		       k v))
+	       (declare (ignore k))
+	       (format t "~&~A" v))
 	   *module-table*))
 
 (defun enroll-students ()
