@@ -68,15 +68,15 @@
 (defun view-students ()
   "View all students registered so far."
   (maphash #'(lambda (k v)
-	       (format t "~&NAME: ~A, ~A"
-		       k v))
+	       (declare (ignore k))
+	       (format t "~&~A" v))
 	   *student-table*))
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
   (let ((info (gethash name *student-table*)))
     (if info
-	(format t "~&NAME: ~A, ~A~%" name info)
+	(format t "~&~A~%" info)
 	(format t "~&No student record found."))))
 
 (defun delete-student (name)
