@@ -123,7 +123,17 @@
   "Enroll students to modules."
   (format t "~&Module ID? ")
   (let ((mid (read-line)))
-    (format t "Add Student by Full Name: ")
-    (let ((proname (normalize-name (read-line))))
-      (let ((student (gethash proname *student-table*)))
-	(push `(,mid 0) (students-modules student))))))
+    (enroll-students-aux mid)))
+
+(defun enroll-students-aux (mid)
+  "Enroll multiple students to the specified MODULES ID.
+Returns the table of Students."
+  (format t "Add Student by Full Name: ")
+  (let* ((proname (normalize-name (read-line)))
+	 (student (gethash proname *student-table*)))
+    (push `(,mid 0) (students-modules student))
+    (format t "~&Add more (y/n)? ")
+    (let ((resp (read-line)))
+      (if (string= resp "n")
+	  (view-students)
+	  (enroll-students-aux mid)))))
