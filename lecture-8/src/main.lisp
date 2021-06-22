@@ -80,7 +80,7 @@
 
 (defun find-student (name)
   "Find the record of a student with a given name NAME."
-  (let* ((proname (normalize-name (read-line)))
+  (let* ((proname (normalize-name name))
 	 (info (gethash proname *student-table*)))
     (if info
 	(format t "~&~A~%" info)
@@ -88,7 +88,7 @@
 
 (defun delete-student (name)
   "Delete the record of the named student."
-  (let* ((proname (normalize-name (read-line)))
+  (let* ((proname (normalize-name name))
 	 (info (gethash proname *student-table*)))
     (cond (info
 	   (remhash proname *student-table*)
@@ -121,4 +121,9 @@
 
 (defun enroll-students ()
   "Enroll students to modules."
-  (error "Not yet implemented."))
+  (format t "~&Module ID? ")
+  (let ((mid (read-line)))
+    (format t "Add Student by Full Name: ")
+    (let ((proname (normalize-name (read-line))))
+      (let ((student (gethash proname *student-table*)))
+	(push `(,mid 0) (students-modules student))))))
