@@ -21,9 +21,11 @@
 (defstruct (students (:print-function
 		      (lambda (s stream depth)
 			(declare (ignore depth))
-			(format stream "#<SID: ~A, MODULES: ~A>"
-			(students-sid s)
-			(students-modules s)))))
+			(format stream "#<SID: ~A, NAME: ~A, MODULES: ~A>"
+				(students-sid s)
+				(students-name s)
+				(students-modules s)))))
+  (name nil)
   (sid (incf *last-sid*))
   (modules nil))
 
@@ -37,6 +39,7 @@
   (name (progn
 	  (format t "Module Name? ")
 	  (read-line)))
+  (mid nil)
   (lecturer (progn
 	      (format t "Lecturer? ")
 	      (read-line)))
@@ -49,17 +52,18 @@
   "Starting point of the application."
   (format t "Ready to Rock!"))
 
-(defun register-student ()
+(defun register-students ()
   "Store student records."
   (format t "~&Student Name? ")
   (let ((name (read-line)))
     (setf (gethash (string-capitalize (string-downcase name))
 		   *student-table*)
-	  (make-students))
+	  (make-students :name name))
     (format t "Add more (y/n)? ")
     (let ((yn (read-line)))
-      (unless (char= (char yn 0) #\n)
-	(register-student)))))
+      (if (char= (char yn 0) #\n)
+	  (view-students)
+	  (register-student)))))
 
 (defun view-students ()
   "View all students registered so far."
