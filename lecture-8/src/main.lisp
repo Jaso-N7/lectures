@@ -32,19 +32,17 @@
 (defstruct (modules (:print-function
 		     (lambda (m stream depth)
 		       (declare (ignore depth))
-		       (format stream "#<MID: ~A, NAME: ~A, LECTURER: ~A, GRADE: ~A>"
+		       (format stream "#<MID: ~A, NAME: ~A, LECTURER: ~A>"
 			       (modules-mid m)
 			       (modules-name m)
-			       (modules-lecturer m)
-			       (modules-grade m)))))
+			       (modules-lecturer m)))))
   (name (progn
 	  (format t "Module Name? ")
 	  (read-line)))
   (mid nil)
   (lecturer (progn
 	      (format t "Lecturer? ")
-	      (read-line)))
-  (grade nil))
+	      (read-line))))
 
 
 ;;; UTILITIES
