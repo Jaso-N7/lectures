@@ -55,7 +55,11 @@
 
 (defun main ()
   "Starting point of the application."
-  (format t "Ready to Rock!"))
+  (format t "~&TODO!~%")
+  (format t "Revise ENROLL-STUDENTS to save modules as a HASH-TABLE in lieu of a LIST.~%")
+  (format t "Revise student information to reveal grades.~%")
+  (format t "Revise all functions that handle setting student grades.~%")
+  (format t "Complete functions yet to be implemented."))
 
 (defun register-students ()
   "Store student records."
