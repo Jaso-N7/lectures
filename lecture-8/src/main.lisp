@@ -82,9 +82,10 @@
   "Find the record of a student with a given name NAME."
   (let* ((proname (normalize-name name))
 	 (info (gethash proname *student-table*)))
-    (if info
-	(format t "~&~A~%" info)
-	(format t "~&No student record found."))))
+    (students-p
+     (if info
+	 (print info)
+	 (print "No student record found.")))))
 
 (defun delete-student (name)
   "Delete the record of the named student."
@@ -153,8 +154,30 @@ Returns the table of Students."
 	  (enroll-students-aux mid)))))
 
 (defun record-marks ()
-  "Recording marks for modules which students have already attempted."
-  (error "Not yet implemented."))
+  "Recording marks for modules which students have already attempted.
+Returns a table of students with their updated marks."
+  (maphash #'(lambda (k v)
+	       (let ((modules (students-modules v)))
+		 (unless (null modules)
+		   (record-mark k modules))))
+	   *student-table*)
+  (view-students))
+	       
+(defun record-mark (student modules)
+  "Go through the list of enrolled modules and update the marks."
+  (unless (null modules)
+    (let ((module (caar modules)))
+      (format t "~&Update ~A's mark for ~A (y/n)? "
+	      student module)
+      (let ((yn (read-line)))
+	(when (string= yn "y")
+	  (format t "Set mark [~A]: " (cadar modules))
+	  (setf (cadar modules)
+		(parse-integer (read-line)))))))
+  (record-mark student (cdr modules)))))
+	  
+		
+
 
 (defun total-marks ()
   "Use REDUCE to find the total number of marks over all modules attempted by each student and hence the total marks obtained by the student cohort"
