@@ -45,10 +45,27 @@
 	      (read-line))))
 
 
+(defconstant days-of-week
+  #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"))
+
+(defconstant months #("Jan" "Feb" "Mar" "Apr"
+		      "May" "Jun" "Jul" "Aug"
+		       "Sep" "Oct" "Nov" "Dec"))
+
 ;;; UTILITIES
 
 (defun normalize-name (name)
   (string-capitalize (string-downcase name)))
+
+
+(defun date-1 ()
+  "Emulates UNIX date(1) command. Return example: Fri Sep 15
+14:12:41 BST 2000"
+  (multiple-value-bind (s m h dt mth y d dst tz) (get-decoded-time)
+    (format nil "~A ~A ~A ~A:~2,,,'0@A:~2,,,'0@A ~A ~A"
+	    (svref days-of-week d)
+	    (svref months mth)
+	    dt h m s tz y)))
 
 ;;; FUNCTIONS
 
@@ -176,7 +193,7 @@ Returns a table of students with their updated marks."
 	  (format t "Set mark [~A]: " (cadar modules))
 	  (setf (cadar modules)
 		(parse-integer (read-line)))))))
-  (record-mark student (cdr modules)))))
+  (record-mark student (cdr modules)))
 	  
 		
 
