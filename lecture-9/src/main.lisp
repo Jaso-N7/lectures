@@ -45,3 +45,25 @@ CL-USER> (LECTURE-9::SQR>5 30)
 "
   (when (> n 5)
     (* n n)))
+
+(defun precedes-rec (x v)
+  "Takes an object X and vector V, and returns a list of
+all the objects that immediately precede X in V:
+> (precede #\a \"abracadraba\") => (#\c #\d #\r)"
+  (let ((pos (1- (length v))))
+    (reverse (remove-duplicates 	; I don't like this solution
+	      (precedes-rec-aux x v pos)))))
+
+(defun precedes-rec-aux (x v pos)
+  "Helper function to `PRECEDES-REC'. Takes an object X, vector V and current
+position in vector POS. Traverses the vector and returns a list of all
+the objects that immediately preceds X in V."
+    (cond ((zerop pos)
+	   '())
+	  ((and (eql x (aref v pos))
+		(not (eql x (aref v (1- pos)))))
+	   (cons (aref v (1- pos))
+		 (precedes-rec-aux x v (1- pos))))
+	  (t
+	    (precedes-rec-aux x v (1- pos)))))
+	
