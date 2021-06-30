@@ -80,3 +80,24 @@ all the objects that immediately precede X in V:
       (when (and (eql x (aref v i))
 		 (not (eql x (aref v (- i 1)))))
 	(pushnew (aref v (- i 1)) pre)))))
+
+;; 6
+(defun intersperce (obj lst)
+  "Takes an object OBJ and a list LST and returns a new list
+in which the object appears between each pair of elements in
+the original list.
+
+> (intersperce '- '(a b c d))
+=> (A - B - C - D)"
+  (error "Not yet implemented."))
+
+(defun intersperse (obj lst)
+  "Takes an object OBJ and a list LST and returns a new list
+in which the object appears between each pair of elements in
+the original list.
+
+> (intersperse '- '(a b c d))
+=> (A - B - C - D)"
+  (error "Not yet implemented."))
+
+
