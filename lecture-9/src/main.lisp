@@ -67,3 +67,14 @@ the objects that immediately preceds X in V."
 	  (t
 	    (precedes-rec-aux x v (1- pos)))))
 	
+(defun precedes (x v)
+  "Takes an object X and vector V, and returns a list of
+all the objects that immediately precede X in V:
+> (precede #\a \"abracadraba\") => (#\c #\d #\r)"
+  (let ((pre '())
+	(lenv (length v)))
+    (do ((i 2 (+ i 1)))
+	((= i lenv) (nreverse pre))
+      (when (and (eql x (aref v i))
+		 (not (eql x (aref v (- i 1)))))
+	(pushnew (aref v (- i 1)) pre)))))
