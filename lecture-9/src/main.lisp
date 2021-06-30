@@ -89,7 +89,15 @@ the original list.
 
 > (intersperce '- '(a b c d))
 => (A - B - C - D)"
-  (error "Not yet implemented."))
+  (cond ((endp lst)
+	 '())
+	((>= (length lst) 2)
+	 (cons (car lst)
+	       (cons obj
+		     (intersperce obj (cdr lst)))))
+	(t
+	 (cons (car lst)
+	       (intersperce obj (cdr lst))))))
 
 (defun intersperse (obj lst)
   "Takes an object OBJ and a list LST and returns a new list
