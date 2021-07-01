@@ -82,7 +82,7 @@ all the objects that immediately precede X in V:
 	(pushnew (aref v (- i 1)) pre)))))
 
 ;; 6
-(defun intersperer (obj lst)
+(defun intersperser (obj lst)
   "Takes an object OBJ and a list LST and returns a new list
 in which the object appears between each pair of elements in
 the original list.
