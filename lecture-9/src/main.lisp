@@ -121,7 +121,7 @@ EXAMPLE
 		     list
 		     (make-list list-len :initial-element object)))))
 
-;; 7
+;; 7(a)
 (defun every-pair-a (lis)
   "Takes a list of numbers LIS and return T IFF the difference
 between each successive pair of them is 1; NIL otherwise."
@@ -141,6 +141,7 @@ between each successive pair of them is 1; NIL otherwise."
 	    (otherwise (setf ans nil)))
 	  ans))))
 
+;; 7(b)
 (defun every-pair (predicate list)
   "Apply PREDICATE to each successive pair of elements of the LIST.
 Return NIL as soon as any invocation of PREDICATE returns NIL; Otherwise
