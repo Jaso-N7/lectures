@@ -94,10 +94,10 @@ the original list.
 	((>= (length lst) 2)
 	 (cons (car lst)
 	       (cons obj
-		     (intersperce obj (cdr lst)))))
+		     (intersperser obj (cdr lst)))))
 	(t
 	 (cons (car lst)
-	       (intersperce obj (cdr lst))))))
+	       (intersperser obj (cdr lst))))))
 
 (defun intersperses (obj lst)
   "Takes an object OBJ and a list LST and returns a new list
@@ -122,7 +122,7 @@ EXAMPLE
 		     (make-list list-len :initial-element object)))))
 
 ;; 7
-(defun every-1+-a (lis)
+(defun every-pair-a (lis)
   "Takes a list of numbers LIS and return T IFF the difference
 between each successive pair of them is 1; NIL otherwise."
   (assert (and (listp lis)
@@ -134,10 +134,10 @@ between each successive pair of them is 1; NIL otherwise."
     (if (zerop len)
 	ans
 	(let ((diff (- (cadr lis) (car lis))))
-	  (case 1
-	    (diff
+	  (case diff
+	    (1
 	     (setf ans t)
-	     (every-1+-a (cddr lis)))
+	     (every-pair-a (cddr lis)))
 	    (otherwise (setf ans nil)))
 	  ans))))
 
@@ -150,7 +150,16 @@ Example:
 > (EVERY-PAIR #'PLUS1P '(1 -0 3 2 5 6 101 100) => T
 > (EVERY-PAIR #'PLUS1P '(7 8 7 7 5 6 55 42) => NIL
 > (EVERY-PAIR #'PLUS1P '(0 1 2) => NIL"
-  (error "Not yet implemented"))
+  (let ((jump 2)
+	(len (length list)))
+    (do ((first 0 (+ first jump))
+	 (second 1 (+ second jump)))
+	((or (null (nth first list))
+	     (null (nth second list))
+	     (endp list))
+	 T)
+      (unless (funcall predicate (nth first list) (nth second list))
+	(return nil)))))
 
 (defun plus1p (x y)
   "Returns T if the difference between X and Y is 1; Otherwise return NIL."
