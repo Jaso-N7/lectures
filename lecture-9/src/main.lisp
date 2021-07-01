@@ -151,8 +151,7 @@ Example:
 > (EVERY-PAIR #'PLUS1P '(1 -0 3 2 5 6 101 100) => T
 > (EVERY-PAIR #'PLUS1P '(7 8 7 7 5 6 55 42) => NIL
 > (EVERY-PAIR #'PLUS1P '(0 1 2) => NIL"
-  (let ((jump 2)
-	(len (length list)))
+  (let ((jump 2))
     (do ((first 0 (+ first jump))
 	 (second 1 (+ second jump)))
 	((or (null (nth first list))
@@ -166,3 +165,11 @@ Example:
   "Returns T if the difference between X and Y is 1; Otherwise return NIL."
   (or (= 1 (- x y))
       (= 1 (- y x))))
+
+;; 7(c)
+(defun every-pair-c (list)
+    "Apply PREDICATE to each successive pair of elements of the LIST.
+Return NIL as soon as any invocation of PREDICATE returns NIL; Otherwise
+T if every invocation is T."
+  ;; This maybe easier with a closure 'minusn' or something.
+  (error "Not yet implemented."))
