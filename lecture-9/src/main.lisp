@@ -82,7 +82,7 @@ all the objects that immediately precede X in V:
 	(pushnew (aref v (- i 1)) pre)))))
 
 ;; 6
-(defun intersperce (obj lst)
+(defun intersperer (obj lst)
   "Takes an object OBJ and a list LST and returns a new list
 in which the object appears between each pair of elements in
 the original list.
@@ -99,7 +99,7 @@ the original list.
 	 (cons (car lst)
 	       (intersperce obj (cdr lst))))))
 
-(defun intersperse (obj lst)
+(defun intersperses (obj lst)
   "Takes an object OBJ and a list LST and returns a new list
 in which the object appears between each pair of elements in
 the original list.
@@ -109,6 +109,50 @@ the original list.
   (let (new-lst)
     (dolist (ls lst (cdr (nreverse new-lst)))
       (setf new-lst (apply #'list ls obj new-lst)))))
-	      
 
+(defun intersperse (object list)
+    "Takes an OBJECT and a LIST, then returns a new list in which the OBJECT 
+appears between each pair of elements in the original LIST.
+EXAMPLE
+> (intersperse '- '(a b c d))
+=> (A - B - C - D)"
+  (let ((list-len (length list)))
+    (butlast (mapcan #'list
+		     list
+		     (make-list list-len :initial-element object)))))
 
+;; 7
+(defun every-1+-a (lis)
+  "Takes a list of numbers LIS and return T IFF the difference
+between each successive pair of them is 1; NIL otherwise."
+  (assert (and (listp lis)
+	       (every #'numberp lis))
+	  (lis)
+	  " >> Precondition failed: Expecting list of numbers.")
+  (let ((len (length lis))
+	(ans nil))
+    (if (zerop len)
+	ans
+	(let ((diff (- (cadr lis) (car lis))))
+	  (case 1
+	    (diff
+	     (setf ans t)
+	     (every-1+-a (cddr lis)))
+	    (otherwise (setf ans nil)))
+	  ans))))
+
+(defun every-pair (predicate list)
+  "Apply PREDICATE to each successive pair of elements of the LIST.
+Return NIL as soon as any invocation of PREDICATE returns NIL; Otherwise
+T if every invocation is T.
+Example:
+> (EVERY-PAIR #'PLUS1P '(0 1 2 3 4 5 6 7 8 9) => T
+> (EVERY-PAIR #'PLUS1P '(1 -0 3 2 5 6 101 100) => T
+> (EVERY-PAIR #'PLUS1P '(7 8 7 7 5 6 55 42) => NIL
+> (EVERY-PAIR #'PLUS1P '(0 1 2) => NIL"
+  (error "Not yet implemented"))
+
+(defun plus1p (x y)
+  "Returns T if the difference between X and Y is 1; Otherwise return NIL."
+  (or (= 1 (- x y))
+      (= 1 (- y x))))
