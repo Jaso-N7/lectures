@@ -106,6 +106,9 @@ the original list.
 
 > (intersperse '- '(a b c d))
 => (A - B - C - D)"
-  (error "Not yet implemented."))
+  (let (new-lst)
+    (dolist (ls lst (cdr (nreverse new-lst)))
+      (setf new-lst (apply #'list ls obj new-lst)))))
+	      
 
 
