@@ -1,10 +1,10 @@
-(defpackage :lecture-7
+(defpackage :lectures-7
   (:use :cl)
   (:import-from :model :register :registry :new-module)
   (:export :main)
   (:documentation "Main package to be loaded."))
 
-(in-package :lecture-7)
+(in-package :lectures-7)
 
 (defun main ()
   (format t "~&Welcome to the Student Directory:~%")

@@ -1,8 +1,8 @@
-(defpackage lecture-8
+(defpackage lectures-8
   (:use :cl)
   (:export :main))
 
-(in-package :lecture-8)
+(in-package :lectures-8)
 
 ;;; DATA
 

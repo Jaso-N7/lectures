@@ -1,5 +1,5 @@
-(defsystem "lecture-7"
-  :version "0.1.0"
+(defsystem "lectures"
+  :version "0.2.0"
   :author "Jason S. Robinson"
   :license ""
   :depends-on ()
@@ -7,17 +7,19 @@
   :components ((:module "src"
                 :components
                 ((:file "model")
-		 (:file "main"))))
+		 (:file "lec-7")
+		 (:file "lec-8")
+		 (:file "lec-9"))))
 
   :description "Student Registry")
 
-(defsystem "lecture-7/tests"
+(defsystem "lectures/tests"
   :author "Jason S. Robinson"
   :license ""
-  :depends-on ("lecture-7"
-               "rove")
+  :depends-on ("lectures"
+               "fiveam")
   :components ((:module "tests"
                 :components
                 ((:file "main"))))
-  :description "Test system for lecture-7"
-  :perform (test-op (op c) (symbol-call :rove :run c)))
+  :description "Test system for lectures"
+  :perform (test-op (op c) (symbol-call :fiveam :run c)))

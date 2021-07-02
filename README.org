@@ -1,5 +1,6 @@
+* Declarative Languages
 
-* Lecture-7  - Student Registry
+** Lecture-7  - Student Registry
 
 Based on [[https://nicklevine.org/declarative/lectures/lectures/lecture-7.html][Week 7]] Lecture series from [[https://nicklevine.org][Nick Levine]]'s lecture notes.
 7.8 Practical session / Suggested activity.
@@ -14,7 +15,7 @@ Suppose we have structure definition thus:
 ```
      
     Start by creating an instance of this structure type "on the fly". Interrogate its slot-values. Try setting them. Interrogate the slots again. Have you got the hang of it yet?
-
+    
     Write a program to ask for and read in student names, and to build structures of type student (leaving the modules field blank for now). When the input is finished (you might for example let the user signal that by typing in an "empty name"; the loop macro might be useful to you so do feel free to ask about it), return the list of structures you have generated, sorted by students' names into alphabetical order. Try to find an excuse to use lambda here.
 
     Write a function to find the name of the student with a given SID.

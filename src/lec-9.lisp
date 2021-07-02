@@ -1,8 +1,9 @@
-(defpackage lecture-9
+(defpackage lectures-9
   (:use :cl)
-  (:documentation ""))
+  (:documentation "Various exercises from Chapters 5, 6 and 8. 
+Also includes the Practical session / Suggested activity from Lecture 9.9"))
 
-(in-package :lecture-9)
+(in-package :lectures-9)
 
 ;;; ANSI CL - Paul Graham Chapter 5 Exercises
 
