@@ -19,6 +19,8 @@ Also includes the Practical session / Suggested activity from Lecture 9.9"))
 ;;     (+ w z)))
 ;;  z)
 
+
+
 ;; 2.
 (defun mystery (x y)
   "Determines the position of X in list Y.
@@ -33,6 +35,8 @@ Example 2:
 	(t
 	 (let ((z (mystery x (cdr y))))
 	   (and z (+ z 1))))))
+
+
 
 ;; 3.
 (defun sqr>5 (n)
@@ -82,13 +86,15 @@ all the objects that immediately precede X in V:
 		 (not (eql x (aref v (- i 1)))))
 	(pushnew (aref v (- i 1)) pre)))))
 
+
+
 ;; 6
 (defun intersperser (obj lst)
   "Takes an object OBJ and a list LST and returns a new list
 in which the object appears between each pair of elements in
 the original list.
 
-> (intersperce '- '(a b c d))
+> (INTERSPERSER '- '(a b c d))
 => (A - B - C - D)"
   (cond ((endp lst)
 	 '())
@@ -105,7 +111,7 @@ the original list.
 in which the object appears between each pair of elements in
 the original list.
 
-> (intersperse '- '(a b c d))
+> (INTERSPERSES '- '(a b c d))
 => (A - B - C - D)"
   (let (new-lst)
     (dolist (ls lst (cdr (nreverse new-lst)))
@@ -115,12 +121,14 @@ the original list.
     "Takes an OBJECT and a LIST, then returns a new list in which the OBJECT 
 appears between each pair of elements in the original LIST.
 EXAMPLE
-> (intersperse '- '(a b c d))
+> (INTERSPERSE '- '(a b c d))
 => (A - B - C - D)"
   (let ((list-len (length list)))
     (butlast (mapcan #'list
 		     list
 		     (make-list list-len :initial-element object)))))
+
+
 
 ;; 7(a)
 (defun every-pair-a (lis)
