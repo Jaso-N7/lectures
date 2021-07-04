@@ -62,6 +62,7 @@
   "Emulates UNIX date(1) command. Return example: Fri Sep 15
 14:12:41 BST 2000"
   (multiple-value-bind (s m h dt mth y d dst tz) (get-decoded-time)
+    (declare (ignore dst))
     (format nil "~A ~A ~A ~A:~2,,,'0@A:~2,,,'0@A ~A ~A"
 	    (svref days-of-week d)
 	    (svref months mth)
@@ -120,6 +121,7 @@
   "Return the list of SIDs of any student who hasn't attempted any modules at all."
   (let ((unenrolled ()))
     (maphash #'(lambda (key value)
+		 (declare (ignore key))
 		 (when (null (students-modules value))
 		   (push (students-sid value) unenrolled)))
 	     *student-table*)
@@ -128,6 +130,7 @@
 (defun un-enrolled-student ()
   "Return the SID of any student who hasn't attempted any modules at all."
   (maphash #'(lambda (key value)
+	       (declare (ignore key))
 	       (when (null (students-modules value))
 		 (return-from un-enrolled-student
 		   (students-sid value))))
