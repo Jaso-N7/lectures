@@ -3,13 +3,15 @@
   :author "Jason S. Robinson"
   :license ""
   :depends-on ()
-  :serial t
   :components ((:module "src"
                 :components
-                ((:file "model")
-		 (:file "lec-7")
+                ((:file "utils")
+		 (:file "model")
+		 (:file "lec-7"
+			:depends-on ("model"))
 		 (:file "lec-8")
-		 (:file "lec-9"))))
+		 (:file "lec-9"
+			:depends-on ("utils")))))
 
   :description "Student Registry")
 
