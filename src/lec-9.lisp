@@ -197,3 +197,13 @@ CL-USER> (lectures-9::count-args)
 CL-USER> (lectures-9::count-args 36 94 'a)
 3"
   (length args))
+
+
+;; 6
+;; Takes one argument, a number, and returns the greatest argument passed to it so far.
+(setf greatest (let ((maxn 0))
+		 #'(lambda (n)
+		     (if (> n maxn)
+			 (setf maxn n)
+			 maxn))))
+  
