@@ -6,6 +6,37 @@
 
 ;;; ANSI CL by Paul Graham - Chapter 6
 
+;; 1.
+(defun tokens (str &optional (test #'constituent) (start 0))
+  "Extract tokens from a string. Given a string STR and a TEST function, 
+defaulting to CONSTITUENT, it returns a list of the substrings whose
+characters satisfy the function TEST.
+START represents where in the substring to begin the extraction.
+
+> (TOKENS \"ab12 3cde.f\" #'alpha-char-p) 
+=> (\"ab\" \"cde\" \"f\")
+
+> (TOKENS \"ab12 3cde.f\
+            gh\" #'constituent) 
+=> (\"ab12\" \"3cde.f\" \"gh\")"
+  (let ((p1 (position-if test str :start start)))
+    (if p1
+	(let ((p2 (position-if #'(lambda (c)
+				   (not (funcall test c)))
+			       str
+			       :start p1)))
+	  (cons (subseq str p1 p2)
+		(if p2
+		    (tokens str test p2)
+		    nil)))
+	nil)))
+
+(defun constituent (c)
+  (and (graphic-char-p c)
+       (not (char= c #\  ))))
+
+
+
 ;; 2
 (defun bin-search (obj vec
 		   &key
