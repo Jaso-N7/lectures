@@ -188,3 +188,12 @@ T if every invocation is T."
 
 ;;; ANSI CL - Paul Graham Chapter 6 Exercises
 
+;; 3
+(defun count-args (&rest args)
+  "Takes any number of arguments ARGS and returns the number of arguments passed to it.
+
+CL-USER> (lectures-9::count-args)
+0
+CL-USER> (lectures-9::count-args 36 94 'a)
+3"
+  (length args))

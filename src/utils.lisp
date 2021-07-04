@@ -62,3 +62,26 @@ START represents where in the substring to begin the extraction.
 		(t 
 		 obj)))))))
       
+
+;; 4
+(defun most (fn lst)
+  "Returns the element of a list LST with the highest score, according to some
+function FN. It returns two values, the highest and second-highest scoring elements
+of a list:
+
+> (MOST #'(lambda (e)
+	    (length e))
+        '((A B) (A B C) (A)))
+(A B C)
+(A B)
+
+If there is a tie, the element occuring first is returned.
+
+CL-USER> (utils::most #'(lambda (e)
+			  (length e))
+		      '((a b) (a b c) (d e f) (g)))
+		      
+(A B C)
+(D E F)"
+  (let ((sorted (sort (copy-list lst) #'> :key fn)))
+    (values (car sorted) (cadr sorted))))
