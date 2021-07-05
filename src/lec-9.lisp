@@ -1,5 +1,6 @@
 (defpackage lectures-9
   (:use :cl)
+  (:nicknames "LEC9")
   (:documentation "Various exercises from Chapters 5, 6 and 8. 
 Also includes the Practical session / Suggested activity from Lecture 9.9"))
 
@@ -202,6 +203,13 @@ CL-USER> (lectures-9::count-args 36 94 'a)
 
 ;; 6
 ;; Takes one argument, a number, and returns the greatest argument passed to it so far.
+;; CL-USER> (FUNCALL LEC9::GREATEST 12)
+;; 12
+;; CL-USER> (FUNCALL LEC9::GREATEST -456)
+;; 12
+;; CL-USER> (FUNCALL LEC9::GREATEST 42)
+;; 42
+;;
 (setf greatest (let ((maxn 0))
 		   #'(lambda (n)
 		       (if (> n maxn)
