@@ -199,11 +199,29 @@ CL-USER> (lectures-9::count-args 36 94 'a)
   (length args))
 
 
+
 ;; 6
 ;; Takes one argument, a number, and returns the greatest argument passed to it so far.
 (setf greatest (let ((maxn 0))
+		   #'(lambda (n)
+		       (if (> n maxn)
+			   (setf maxn n)
+			   maxn)))
+      ;; 7
+      ;; Takes a number and returns T if it is greater than the previous argument passed.
+      ;; Returns NIL the first time it is called
+      greater (let ((maxp nil)
+		     (prev 0))
 		 #'(lambda (n)
-		     (if (> n maxn)
-			 (setf maxn n)
-			 maxn))))
+		     (cond ((null maxp)
+			    (setf prev n)
+			    (setf maxp T)
+			    nil)
+			   (maxp
+			    (if (> n prev)
+				(progn 
+				  (setf prev n)
+				  T)
+				nil))))))
+
   
