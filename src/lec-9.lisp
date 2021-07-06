@@ -203,35 +203,37 @@ CL-USER> (lectures-9::count-args 36 94 'a)
 ;;; 9.9 Practical session / Suggested Activity
 
 ;; 6
-;; Takes one argument, a number, and returns the greatest argument passed to it so far.
-;; CL-USER> (FUNCALL LEC9::GREATEST 12)
-;; 12
-;; CL-USER> (FUNCALL LEC9::GREATEST -456)
-;; 12
-;; CL-USER> (FUNCALL LEC9::greatest 42)
-;; 42
-;;
-(setf greatest (let ((maxn 0))
-		   #'(lambda (n)
-		       (if (> n maxn)
-			   (setf maxn n)
-			   maxn)))
-      ;; 7
-      ;; Takes a number and returns T if it is greater than the previous argument passed.
-      ;; Returns NIL the first time it is called
-      greater (let ((maxp nil)
-		     (prev 0))
-		 #'(lambda (n)
-		     (cond ((null maxp)
-			    (setf prev n)
-			    (setf maxp T)
-			    nil)
-			   (maxp
-			    (if (> n prev)
-				(progn 
-				  (setf prev n)
-				  T)
-				nil))))))
+(defparameter greatest
+  (let ((maxn 0))
+    #'(lambda (n)
+	(if (> n maxn)
+	    (setf maxn n)
+	    maxn)))
+  "Takes one argument, a number, and returns the greatest argument passed to it so far.
+CL-USER> (FUNCALL LEC9::GREATEST 12)
+12
+CL-USER> (FUNCALL LEC9::GREATEST -456)
+12
+CL-USER> (FUNCALL LEC9::greatest 42)
+42")
+
+;; 7
+(defparameter greater
+  (let ((maxp nil)
+	(prev 0))
+    #'(lambda (n)
+	(cond ((null maxp)
+	       (setf prev n)
+	       (setf maxp T)
+	       nil)
+	      (maxp
+	       (if (> n prev)
+		   (progn 
+		     (setf prev n)
+		     T)
+		   nil)))))
+  "Takes a number and returns T if it is greater than the previous argument passed.
+Returns NIL the first time it is called")
 
   
 (defun safe-average (numbers)
