@@ -200,6 +200,7 @@ CL-USER> (lectures-9::count-args 36 94 'a)
   (length args))
 
 
+;;; 9.9 Practical session / Suggested Activity
 
 ;; 6
 ;; Takes one argument, a number, and returns the greatest argument passed to it so far.
@@ -207,7 +208,7 @@ CL-USER> (lectures-9::count-args 36 94 'a)
 ;; 12
 ;; CL-USER> (FUNCALL LEC9::GREATEST -456)
 ;; 12
-;; CL-USER> (FUNCALL LEC9::GREATEST 42)
+;; CL-USER> (FUNCALL LEC9::greatest 42)
 ;; 42
 ;;
 (setf greatest (let ((maxn 0))
@@ -233,3 +234,24 @@ CL-USER> (lectures-9::count-args 36 94 'a)
 				nil))))))
 
   
+(defun safe-average (numbers)
+  "Determine the average of a list of NUMBERS as a FLOAT. If the list does not
+contain a number, computation will end.
+
+CL-USER> (lectures-9::safe-average '(7 8 9 0 5 4 6 1 2 3))
+4.5
+CL-USER> (lectures-9::safe-average '(7 8 9 ten))
+TEN is not a number
+NIL"
+  (catch 'nan
+    (when numbers
+      (let* ((total 0)
+	     (amount (length numbers)))
+	(mapc #'(lambda (number?)
+		  (if (numberp number?)
+		      (incf total number?)
+		      (throw 'nan
+			(format t "~A is not a number"
+				number?))))
+	      numbers)
+	(float (/ total amount))))))
