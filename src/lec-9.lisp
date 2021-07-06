@@ -204,7 +204,7 @@ CL-USER> (lectures-9::count-args 36 94 'a)
 
 ;; 6
 (defparameter greatest
-  (let ((maxn 0))
+  (let ((maxn most-negative-long-float))
     #'(lambda (n)
 	(if (> n maxn)
 	    (setf maxn n)
