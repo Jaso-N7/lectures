@@ -13,7 +13,8 @@
 		 (:file "lec-9"
 			:depends-on ("utils")))))
 
-  :description "Student Registry")
+  :description "Collection of Practical sessions, suggested activities and Exercises
+from Nick Levine's Declarative Languages course and ANSI CL by Paul Graham.")
 
 (defsystem "lectures/tests"
   :author "Jason S. Robinson"
