@@ -21,3 +21,9 @@ their squares."
 				(* a a))
 			    args))))
 			    
+(defun better-equal (&rest args)
+  (let ((head (car args))
+	(tail (cdr args)))
+    (dolist (a tail T)
+      (unless (equal a head)
+	(return nil)))))
