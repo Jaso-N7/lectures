@@ -1,6 +1,9 @@
 (defpackage lectures-10
   (:use :cl)
   (:nicknames "LEC-10")
+  (:export :sqrt-of-sum
+   :sqrt-sum-sqr
+   :better-equal)
   (:documentation "Suggested activity and exercises for Lecture 10."))
 
 (in-package :lectures-10)
