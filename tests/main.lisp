@@ -37,6 +37,10 @@
   (print "Lecture 10 Unit Tests:")
   (terpri)
 
+  (named "SQRT-OF-SUM: Equality comparison"
+    (is= (lec-10:sqrt-of-sum 42 700 8)
+	 (lec-10:sqrt-of-sum 8 700 42)))
+  
   (named "BETTER-EQUAL: Number Comparison"
     (is= T (lec-10::better-equal 14 14))
     (isnt= T (lec-10::better-equal 14 15)))
