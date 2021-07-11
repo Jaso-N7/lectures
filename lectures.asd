@@ -13,7 +13,7 @@
 		 (:file "lec-9"
 		  :depends-on ("utils"))
 		 (:file "lec-10"))))
-
+  :in-order-to ((test-op (test-op "lectures/tests")))
   :description "Collection of Practical sessions, suggested activities and Exercises
 from Nick Levine's Declarative Languages course and ANSI CL by Paul Graham.")
 
@@ -21,9 +21,14 @@ from Nick Levine's Declarative Languages course and ANSI CL by Paul Graham.")
   :author "Jason S. Robinson"
   :license ""
   :depends-on ("lectures"
-               "fiveam")
+;	       "ptester"         ; Test harness
+	       "cl-quickcheck")  ; Property-Based Testing
   :components ((:module "tests"
                 :components
-                ((:file "main"))))
-  :description "Test system for lectures"
-  :perform (test-op (op c) (symbol-call :fiveam :run c)))
+                ((:file "packages")
+		 (:file "main"
+			:depends-on ("packages")))))
+  :description "Test system for the variouse exercises and activities I did from
+the lectures"
+  :perform (test-op (op c) 
+		    (symbol-call 'lectures/tests ':run-all-tests)))
