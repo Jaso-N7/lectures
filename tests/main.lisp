@@ -19,7 +19,6 @@
 
 (defun run-unit-tests ()
   "Unit Tests."
-  (terpri)
   (print "Lecture 10 Unit Tests:")
   (terpri)
   (quickcheck
