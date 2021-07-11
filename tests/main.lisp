@@ -43,11 +43,6 @@
 	 (lec-10::better-equal "aardvark" "aardvark" "aardvark" "aardvark"))
     (isnt= T
 	   (lec-10::better-equal "aardvark" "aardvark" "goat" "aardvark")))
-  (named "BETTER-EQUAL: Number Comparison"
-    (is= T
-	 (lec-10::better-equal 1 1 1 1 1 1 1 1 1 1 ))
-    (isnt= T
-	   (lec-10::better-equal 1 1 1 5 5 5 42 42 5 5)))
   (named "BETTER-EQUAL: Symbol Comparison"
     (is= T
 	 (lec-10::better-equal 'a 'a 'a))
@@ -58,9 +53,12 @@
 	   (lec-10::better-equal #\I #\s #\n #\t))
     (isnt= T
 	   (lec-10::better-equal 'a #\b "c" 1 2.0 pi)))
-  (named "BETTER-EQUAL: Amount of arguments passed"
+  (named "BETTER-EQUAL: Zero to one arguments of any type passed"
     (is= T (lec-10::better-equal))
-    (is= T (lec-10::better-equal "aardvark"))))
+    (is= T (lec-10::better-equal "aardvark"))
+    (is= T (lec-10::better-equal 'a))
+    (is= T (lec-10::better-equal '(a)))
+    (is= T (lec-10::better-equal -13))))
 
 
 (defun run-quickchecks ()
@@ -79,8 +77,12 @@
     (let ((list-nums '(1 1 1 1 1 1 1 1 1 1 1)))
       (for-all ((rand-nums (a-list an-integer)))
 	(named "LEC-10 BETTER-EQUAL: Number Comparison"
-	  (is lec-10::better-equal rand-nums)
-	  (test (apply #'lec-10::better-equal list-nums)))))))
+	  (is lec-10::better-equal list-nums)
+	  ;; Unit Tests already covers this case
+	  (only-if (>= (length rand-nums) 2)
+		   (isnt= T
+			  (apply #'lec-10::better-equal rand-nums))))))))
+;	  (test (apply #'lec-10::better-equal rand-nums)))))))
       
 
       
