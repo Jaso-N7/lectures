@@ -1,12 +1,12 @@
 (defpackage :lectures-7
   (:use :cl)
   (:import-from :model :register :registry :new-module)
-  (:export :main)
+  (:export :main-menu)
   (:documentation "Main package to be loaded."))
 
 (in-package :lectures-7)
 
-(defun main ()
+(defun main-menu ()
   (format t "~&Welcome to the Student Directory:~%")
   (format t "(A)dd Student~%")
   (format t "(B)rowse all students~%")
