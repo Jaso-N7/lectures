@@ -2,8 +2,8 @@
   (:use :cl)
   (:nicknames "LEC-10")
   (:export :sqrt-of-sum
-   :sqrt-sum-sqr
-   :better-equal)
+           :sqrt-sum-sqr
+	   :better-equal)
   (:documentation "Suggested activity and exercises for Lecture 10."))
 
 (in-package :lectures-10)
@@ -16,12 +16,12 @@
 their squares."
   (let ((sum 0))
     (dolist (arg args (sqrt sum))
-      (incf sum (* arg arg)))))
+      (incf sum (expt arg 2)))))
 
 (defun sqrt-sum-sqr (&rest args)
   "Same as `SQRT-OF-SUM'"
   (sqrt (reduce #'+ (mapcar #'(lambda (a)
-				(* a a))
+				(expt a 2))
 			    args))))
 			    
 (defun better-equal (&rest args)
