@@ -6,7 +6,8 @@
   (:export :sqrt-of-sum
            :sqrt-sum-sqr
 	   :better-equal
-	   :list-lines)
+           :list-lines
+	   :save-no-comments)
   (:documentation "Suggested activity and exercises for Lecture 10."))
 
 (in-package :lectures-10)
@@ -16,6 +17,14 @@
 (defparameter *sample-corpus*
   #P"c:/Users/Jason.Robinson/quicklisp/local-projects/lectures/sample-corpus"
   "Sample corpus file used for file operations.")
+
+(defparameter *src-code-commented*
+  #P"c:/Users/Jason.Robinson/quicklisp/local-projects/lectures/erlang-src.erl"
+  "Sample Elang source code with comments.")
+
+(defparameter *src-code-un-commented*
+  #P"c:/Users/Jason.Robinson/quicklisp/local-projects/lectures/readable-erlang-src.erl"
+  "Sample Elang source code with no comments.")
 
 ;;; FUNCTIONS
 
@@ -56,3 +65,21 @@ their squares."
 		 (read-line istream nil 'eof)))
 	  ((eql line 'eof))
 	(print (tokenize line)))))
+
+;; Graham Ex 7.3
+
+(defun save-no-comments (from-file to-file)
+  "Writes the contents in FROM-FILE to TO-FILE, minus the lines starting with comments.
+Comments are lines starting with %.
+
+EXAMPLE:
+CL-USER> (save-no-comments *src-code-commented* *src-code-un-commented*)"
+  (with-open-file (istream from-file :direction :input)
+    (let ((ostream (open to-file :direction :output
+				 :if-exists :overwrite
+				 :if-does-not-exist :create)))
+      (do ((line (read-line istream nil)
+		 (read-line istream nil)))
+	  ((null line) (close ostream))
+	(unless (char= #\% (char line 0))
+	  (princ line ostream))))))
