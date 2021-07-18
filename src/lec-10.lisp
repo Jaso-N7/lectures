@@ -1,6 +1,8 @@
 (defpackage lectures-10
   (:use :cl)
   (:nicknames "LEC-10")
+  (:import-from :utils
+		:tokenize)
   (:export :sqrt-of-sum
            :sqrt-sum-sqr
 	   :better-equal
@@ -54,17 +56,3 @@ their squares."
 		 (read-line istream nil 'eof)))
 	  ((eql line 'eof))
 	(print (tokenize line)))))
-
-
-;; Credit goes to INF4820
-;; Taken from: https://www.uio.no/studier/emner/matnat/ifi/nedlagte-emner/INF4820/h17/exercises/exercise1.pdf
-(defun tokenize (string)
-  "Break up a line of text into a list of tokens (word-like units)"
-  (loop
-	for start = 0 then (1+ space)
-	for space = (position #\SPACE string :start start)
-	for token = (subseq string start space)
-	unless (string= token "")
-	  collect token
-	until (not space)))
-			   

@@ -1,5 +1,7 @@
 (defpackage :utils
   (:use :cl)
+  (:export :tokens
+           :tokenize)
   (:documentation "Utility Functions."))
 
 (in-package :utils)
@@ -30,6 +32,19 @@ START represents where in the substring to begin the extraction.
 		    (tokens str test p2)
 		    nil)))
 	nil)))
+
+;; Credit goes to INF4820
+;; Taken from: https://www.uio.no/studier/emner/matnat/ifi/nedlagte-emner/INF4820/h17/exercises/exercise1.pdf
+(defun tokenize (string)
+  "Break up a line of text into a list of tokens (word-like units)"
+  (loop
+	for start = 0 then (1+ space)
+	for space = (position #\SPACE string :start start)
+	for token = (subseq string start space)
+	unless (string= token "")
+	  collect token
+	until (not space)))
+
 
 (defun constituent (c)
   (and (graphic-char-p c)
