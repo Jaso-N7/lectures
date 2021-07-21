@@ -16,3 +16,16 @@ Also includes the exercises from Paul Graham's ANSI CL, Chapter 10."))
     `(x ,y ,@z))
   (defun 1c ()
     `((,@z ,x) z)))
+
+;; 2
+(defmacro iffy (predicate when-true unless-false)
+  (let ((test (gensym))
+	(then (gensym))
+	(else (gensym)))
+    `(let ((,test ,predicate)
+	   (,then ,when-true)
+	   (,else ,unless-false))
+       (cond (,test
+	      ,then)
+	     (t  ,else)))))
+	      
