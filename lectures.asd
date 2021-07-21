@@ -12,7 +12,8 @@
 		 (:file "lec-8")
 		 (:file "lec-9"
 		  :depends-on ("utils"))
-		 (:file "lec-10"))))
+		 (:file "lec-10")
+		 (:file "lec-11"))))
   :in-order-to ((test-op (test-op "lectures/tests")))
   :description "Collection of Practical sessions, suggested activities and Exercises
 from Nick Levine's Declarative Languages course and ANSI CL by Paul Graham.")
