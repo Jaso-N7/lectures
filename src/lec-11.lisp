@@ -18,7 +18,7 @@ Also includes the exercises from Paul Graham's ANSI CL, Chapter 10."))
     `((,@z ,x) z)))
 
 ;; 2
-(defmacro iffy (predicate when-true unless-false)
+(defmacro iffy (predicate when-true &optional (unless-false nil))
   (let ((test (gensym))
 	(then (gensym))
 	(else (gensym)))
@@ -28,4 +28,15 @@ Also includes the exercises from Paul Graham's ANSI CL, Chapter 10."))
        (cond (,test
 	      ,then)
 	     (t  ,else)))))
+
+;; 3
+#|
+> (let ((n 2))
+    (nth-expr n (/ 1 0) (+ 1 2) (/ 1 0)))
+3
+|#
+(defmacro nth-expr (n &rest exprs)
+  (let ((index (gensym)))
+    `(let ((,index ,n))
+       (nth-cdr ,index exprs))))
 	      
