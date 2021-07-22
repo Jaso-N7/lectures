@@ -30,11 +30,12 @@
   "Run all test cases for LECTURES package."
   (quickcheck
     (run-unit-tests)
+    (terpri)
     (run-quickchecks)))
 
 (defun run-unit-tests ()
   "Unit Tests."
-  (print "Lecture 10 Unit Tests:")
+  (princ "Lecture 10 Unit Tests:")
   (terpri)
 
   (named "SQRT-OF-SUM: Equality comparison"
@@ -49,12 +50,22 @@
     (is= T (lec-10::better-equal "aardvark"))
     (is= T (lec-10::better-equal 'a))
     (is= T (lec-10::better-equal '(a)))
-    (is= T (lec-10::better-equal -13))))
+    (is= T (lec-10::better-equal -13)))
+
+  (terpri)
+  (princ "Lecture 11 Unit Tests:")
+  (terpri)
+  
+  (named "NTH-EXPR Regression Test"
+    (is= 3 (let ((n 2))
+	     (lec-11::nth-expr n (/ 1 0) (+ 1 2) (/ 1 0)))))
+
+  )
 
 
 (defun run-quickchecks ()
   "Property based tests"
-  (print "Lecture 10 PBTs")
+  (princ "Lecture 10 PBTs")
   (terpri)
 
     (named "BETTER-EQUAL String Comparison"
@@ -86,11 +97,13 @@
 	  (only-if (> (length mixed) 2)
 		   (isnt= T (apply #'lec-10::better-equal mixed))))))
   
-    (named "BETTER-EQUAL: Symbol Comparison"
-      (is= T (lec-10::better-equal 'a 'a 'a))
+  (named "BETTER-EQUAL: Symbol Comparison"
+	 (is= T (lec-10::better-equal 'a 'a 'a))
       (for-all ((symbols (a-list #'a-symbol)))
 	(only-if (> (length symbols) 2)
-		 (isnt= T (apply #'lec-10::better-equal symbols))))))
+		 (isnt= T (apply #'lec-10::better-equal symbols)))))
+
+  )
 		 
 
 
