@@ -35,5 +35,8 @@ Also includes the exercises from Paul Graham's ANSI CL, Chapter 10."))
     (nth-expr n (/ 1 0) (+ 1 2) (/ 1 0)))
 3
 |#
-(defmacro nth-expr (n &rest exprs)
-  3)
+(defmacro nth-expr (n &body exprs)
+  (let ((index (gensym)))
+    `(let ((,index ,n))
+       (nth (1- ,index) exprs))))
+	

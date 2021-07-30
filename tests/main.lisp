@@ -57,8 +57,8 @@
   (terpri)
   
   (named "NTH-EXPR Regression Test"
-    (is= 3 (let ((n 2))
-	     (lec-11::nth-expr n (/ 1 0) (+ 1 2) (/ 1 0)))))
+    (let ((n 2))
+      (is= 3 (lec-11::nth-expr n (/ 1 0) (+ 1 2) (/ 1 0)))))
 
   )
 
