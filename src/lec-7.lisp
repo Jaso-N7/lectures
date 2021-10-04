@@ -6,36 +6,81 @@
 
 (in-package :lectures-7)
 
+;; DATA STRUCTURES
+
+(defstruct menu-item actions)
+
+(defparameter menu-display
+  (make-menu-item
+   :actions #'(lambda ()
+		(format t "~&Welcome to the Student Directory:~%")
+		(format t "(A)dd Student~%")
+		(format t "(B)rowse all students~%")
+		(format t "(C)all by student ID~%")
+		(format t "(D)efine Modules~%")
+		(format t "(E)nroll students to Modules~%")
+		(format t "(Q)uit~%")
+		(format t "Your input: "))))
+
+(defparameter add-students
+  (make-menu-item :actions #'(lambda ()
+			       (register)
+			       (main-menu))))
+
+(defparameter lookup-students
+  (make-menu-item :actions #'(lambda ()
+			       (registry)
+			       (main-menu))))
+
+(defparameter lookup-student
+  (make-menu-item :actions #'(lambda ()
+			       (format t "~&Student ID: ")
+			       (let ((id (parse-integer (read-line))))
+				 (registry id)
+				 (main-menu)))))
+
+(defparameter add-modules
+  (make-menu-item :actions #'(lambda ()
+			       (new-module)
+			       (main-menu))))
+
+(defparameter student-modules
+  (make-menu-item :actions #'(lambda ()
+			       (format t "~&Not yet implemented.~%")
+			       (main-menu))))
+
+(defparameter cleanup
+  (make-menu-item :actions #'(lambda ()
+			       (format t "~&Goodbye"))))
+
+(defparameter unknown
+  (make-menu-item
+   :actions
+   #'(lambda ()
+       (format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
+       (main-menu))))
+
+;; FUNCTIONS
+
+(defun on-select (menu)
+  (funcall (menu-item-actions menu)))
+		    
 (defun main-menu ()
-  (format t "~&Welcome to the Student Directory:~%")
-  (format t "(A)dd Student~%")
-  (format t "(B)rowse all students~%")
-  (format t "(C)all by student ID~%")
-  (format t "(D)efine Modules~%")
-  (format t "(E)nroll students to Modules~%")
-  (format t "(Q)uit~%")
-  (format t "Your input: ")
+  (on-select menu-display)
   (let ((in (read-line)))
     (cond ((string-equal "a" in)
-	   (register)
-	   (main-menu))
+	   (on-select add-students))
 	  ((string-equal "b" in)
-	   (registry)
-	   (main-menu))
+	   (on-select lookup-students))
 	  ((string-equal "c" in)
-	   (format t "~&Student ID: ")
-	   (let ((id (parse-integer (read-line))))
-	     (registry id)
-	     (main-menu)))
+	   (on-select lookup-student))
 	  ((string-equal "d" in)
-	   (new-module)
-	   (main-menu))
+	   (on-select add-modules))
 	  ((string-equal "e" in)
-	   (error "Not yet implemented"))
+	   (on-select student-modules)
 	  ((string-equal "q" in)
-	   (format t "~&Goodbye"))
-	  (t  (format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
-	      (main-menu)))))
+	   (on-select cleanup))
+	  (t  (on-select unknown))))))
 	  
 (defun enroll-students ()
   "Enroll students to modules."
