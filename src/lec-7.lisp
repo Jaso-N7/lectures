@@ -7,80 +7,81 @@
 (in-package :lectures-7)
 
 ;; DATA STRUCTURES
+;; !!! - TODO: Move this section to a CONTROLLER package.
 
-(defstruct menu-item actions)
+(defstruct menu-item display shortcut actions)
 
-(defparameter menu-display
-  (make-menu-item
-   :actions #'(lambda ()
-		(format t "~&Welcome to the Student Directory:~%")
-		(format t "(A)dd Student~%")
-		(format t "(B)rowse all students~%")
-		(format t "(C)all by student ID~%")
-		(format t "(D)efine Modules~%")
-		(format t "(E)nroll students to Modules~%")
-		(format t "(Q)uit~%")
-		(format t "Your input: "))))
+(defparameter *menues*
+  (vector
+   (make-menu-item
+    :display "(A)dd Student~%"
+    :shortcut "a"
+    :actions #'(lambda ()
+		 (register)
+		 (main-menu)))
+   (make-menu-item
+    :display "(B)rowse all students~%"
+    :shortcut "b"
+    :actions #'(lambda ()
+		 (registry)
+		 (main-menu)))
+   (make-menu-item
+    :display "(C)all by student ID~%"
+    :shortcut "c"
+    :actions #'(lambda ()
+		 (format t "~&Student ID: ")
+		 (let ((id (parse-integer (read-line))))
+		   (registry id)
+		   (main-menu))))
+   (make-menu-item
+    :display "(D)efine Modules~%"
+    :shortcut "d"
+    :actions #'(lambda ()
+		 (new-module)
+		 (main-menu)))
+   (make-menu-item
+    :display "(E)nroll students to Modules~%"
+    :shortcut "e"
+    :actions #'(lambda ()
+		 (format t "~&Not yet implemented.~%")
+		 (main-menu)))
+   (make-menu-item
+    :display "(Q)uit~%"
+    :shortcut "q"
+    :actions #'(lambda ()
+		 (format t "~&Goodbye")))
+   (make-menu-item
+    :display "(F)ind Student by Module"
+    :shortcut "f"
+    :actions
+    #'(lambda ()
+	(format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
+	(main-menu)))))
 
-(defparameter add-students
-  (make-menu-item :actions #'(lambda ()
-			       (register)
-			       (main-menu))))
+(defun generate-menu (menu size)
+  "Given the MENU and its SIZE, displays the menu items found in MENU."
+  (dotimes (m size)
+    (format t (menu-item-display
+	       (svref menu m)))))
 
-(defparameter lookup-students
-  (make-menu-item :actions #'(lambda ()
-			       (registry)
-			       (main-menu))))
+(defun event-handler (shortcut menu)
+  "Given the SHORTCUT key entered by the user, call the
+appropriate event-handler as defined in the MENU."
+  (find-if #'(lambda (m)
+	       (string= shortcut
+			(menu-item-shortcut m)))
+	   menu))
 
-(defparameter lookup-student
-  (make-menu-item :actions #'(lambda ()
-			       (format t "~&Student ID: ")
-			       (let ((id (parse-integer (read-line))))
-				 (registry id)
-				 (main-menu)))))
+(defun on-select (fn &rest args)
+  (funcall (menu-item-actions 
+	    (apply fn args))))
 
-(defparameter add-modules
-  (make-menu-item :actions #'(lambda ()
-			       (new-module)
-			       (main-menu))))
-
-(defparameter student-modules
-  (make-menu-item :actions #'(lambda ()
-			       (format t "~&Not yet implemented.~%")
-			       (main-menu))))
-
-(defparameter cleanup
-  (make-menu-item :actions #'(lambda ()
-			       (format t "~&Goodbye"))))
-
-(defparameter unknown
-  (make-menu-item
-   :actions
-   #'(lambda ()
-       (format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
-       (main-menu))))
-
-;; FUNCTIONS
-
-(defun on-select (menu)
-  (funcall (menu-item-actions menu)))
-		    
 (defun main-menu ()
-  (on-select menu-display)
-  (let ((in (read-line)))
-    (cond ((string-equal "a" in)
-	   (on-select add-students))
-	  ((string-equal "b" in)
-	   (on-select lookup-students))
-	  ((string-equal "c" in)
-	   (on-select lookup-student))
-	  ((string-equal "d" in)
-	   (on-select add-modules))
-	  ((string-equal "e" in)
-	   (on-select student-modules)
-	  ((string-equal "q" in)
-	   (on-select cleanup))
-	  (t  (on-select unknown))))))
+  (format t "~&Welcome to the Student Directory:~%")
+  (generate-menu *menues* (length *menues*))
+  (format t "~&Your input: ")
+  (on-select #'event-handler (read-line) *menues*))
+
 	  
 (defun enroll-students ()
   "Enroll students to modules."
