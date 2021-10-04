@@ -7,6 +7,21 @@
 
 ;;; DATA
 
+(defparameter *students* nil
+  "List of students. Used as a temporary stack.")
+
+(defparameter *last-sid* 0
+  "Keeps track of last Student ID used.")
+
+(defparameter *last-mid* 0
+  "Keeps track of last Module ID used.")
+
+(defparameter *student-bst* nil
+  "Binary Search Tree used for storing students.")
+
+(defparameter *modules* nil
+  "Database for Modules - not sure if this should be an array as yet.")
+
 (defstruct (student (:print-function 
 		     (lambda (s stream depth)
 		       (declare (ignore depth))
@@ -37,21 +52,6 @@
   (mid (incf *last-mid*))
 
   lecturer)				; We are assuming one(1) lecturer / module
-
-(defparameter *students* nil
-  "List of students. Used as a temporary stack.")
-
-(defparameter *last-sid* 0
-  "Keeps track of last Student ID used.")
-
-(defparameter *last-mid* 0
-  "Keeps track of last Module ID used.")
-
-(defparameter *student-bst* nil
-  "Binary Search Tree used for storing students.")
-
-(defparameter *modules* nil
-  "Database for Modules - not sure if this should be an array as yet.")
 
 
 ;;; FUNCTIONS - PROTOCOLS
@@ -100,14 +100,11 @@ If the student ID is provided, return only that student information."
 	    (let ((teach (read-line)))
 	      (if (char= #\x (char teach 0))
 		  (return (princ *modules*))
-		  (push (make-modules :name name
-				      :lecturer teach)
-			*modules*))))))))
+		    (push (make-modules :name name
+					:lecturer teach)
+			  *modules*))))))))
 
- 
-;(defun enroll-student-by-id ()
   
-
 ;;; FUNCTIONS - UTILITY
 
 (defun display-students ()
