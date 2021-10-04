@@ -1,37 +1,51 @@
+#+TITLE: Declarative Languages
+#+AUTHOR: Jason S. Robinson
+
 * Declarative Languages
 
-** Lecture-7  - Student Registry
+** Usage
+
+See usage details specific to each Practical Session below.
+
+** Installation
+
+Git clone the repo. If there are any instructions specific to particular
+lectures, they will appear below.
+
+** Practical Session Details
+
+*** TODO Lecture 7  - Student Registry [3/5]
+
+*7.8* _Practical session / Suggested activity._
 
 Based on [[https://nicklevine.org/declarative/lectures/lectures/lecture-7.html][Week 7]] Lecture series from [[https://nicklevine.org][Nick Levine]]'s lecture notes.
-7.8 Practical session / Suggested activity.
 
 Suppose we have structure definition thus:
 
-```
+/
     (defstruct student
       name
       SID        ; an integer
       modules)
-```
-     
-    Start by creating an instance of this structure type "on the fly". Interrogate its slot-values. Try setting them. Interrogate the slots again. Have you got the hang of it yet?
-    
-    Write a program to ask for and read in student names, and to build structures of type student (leaving the modules field blank for now). When the input is finished (you might for example let the user signal that by typing in an "empty name"; the loop macro might be useful to you so do feel free to ask about it), return the list of structures you have generated, sorted by students' names into alphabetical order. Try to find an excuse to use lambda here.
+/
 
-    Write a function to find the name of the student with a given SID.
+ Activities 
++ [X] Start by creating an instance of this structure type "on the fly". Interrogate its slot-values. Try setting them. Interrogate the slots again. Have you got the hang of it yet?
++ [X] Write a program to ask for and read in student names, and to build structures of type student (leaving the modules field blank for now). When the input is finished (you might for example let the user signal that by typing in an "empty name"; the loop macro might be useful to you so do feel free to ask about it), return the list of structures you have generated, sorted by students' names into alphabetical order. Try to find an excuse to use lambda here.
++ [X] Write a function to find the name of the student with a given SID.
++ [-] Modules
+  + [X] Now design and define a structure for modules and
+  + [ ] try enrolling students onto a module.
+  + [ ] You can now write code to ask which modules a named student is enrolled for, or which students have enrolled for a named module.
++ [ ] If time permits, find some way of recording marks for modules which students have already attempted. Use reduce to find the total number of marks over all modules attempted by each student and hence the total marks obtained by the student cohort. Use it agin to count how many modules were attempted by the cohort, and hence give the average mark. Name the three students who have the highest marks. Spot which lecturer fails most of their students. Answer any other questions that might be of interest.
 
-    Now design and define a structure for modules and try enrolling students onto a module. You can now write code to ask which modules a named student is enrolled for, or which students have enrolled for a named module.
+**** Usage
 
-    If time permits, find some way of recording marks for modules which students have already attempted. Use reduce to find the total number of marks over all modules attempted by each student and hence the total marks obtained by the student cohort. Use it agin to count how many modules were attempted by the cohort, and hence give the average mark. Name the three students who have the highest marks. Spot which lecturer fails most of their students. Answer any other questions that might be of interest.
+1. Load and use both the =model.lisp= and =lec-7.lisp= files however you choose. The package is called =:lectures-7= then either, 
+2. =(use-package :lectures-7)= and =(main-menu)=
+3. An onscreen menu will appear.
 
-** Usage
-
-Calling ```(lecture-7:main)``` should be enough to get you started.
-
-** Installation
-
-```(ql:quickload "lecture-7")``` OR
-```(asdf:load-system :lecture-7)```
+*** Lecture 8
 
 ** Author
 
