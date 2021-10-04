@@ -1,8 +1,6 @@
 #+TITLE: Declarative Languages
 #+AUTHOR: Jason S. Robinson
 
-* Declarative Languages
-
 ** Usage
 
 See usage details specific to each Practical Session below.
