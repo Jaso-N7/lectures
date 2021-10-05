@@ -158,22 +158,18 @@
 
 (defun enroll-students ()
   "Enroll students to modules."
-  (format t "~&Module ID? ")
-  (let ((mid (read-line)))
-    (enroll-students-aux mid)))
-
-(defun enroll-students-aux (mid)
-  "Enroll multiple students to the specified MODULES ID.
-Returns the table of Students."
-  (format t "Add Student by Full Name: ")
-  (let* ((proname (normalize-name (read-line)))
-	 (student (gethash proname *student-table*)))
-    (push `(,mid 0) (students-modules student))
-    (format t "~&Add more (y/n)? ")
-    (let ((resp (read-line)))
-      (if (string= resp "n")
-	  (view-students)
-	  (enroll-students-aux mid)))))
+  (labels ((enroll (mid)
+	     (format t "Add Student by Full Name: ")
+	     (let* ((proname (normalize-name (read-line)))
+		    (student (gethash proname *student-table*)))
+	       (push `(,mid 0) (students-modules student))
+	       (format t "~&Add more (y/n)? ")
+	       (let ((resp (read-line)))
+		 (if (string= resp "n")
+		     (view-students)
+		     (enroll mid))))))
+    (format t "~&Module ID? ")
+    (enroll (read-line))))
 
 (defun record-marks ()
   "Recording marks for modules which students have already attempted.
