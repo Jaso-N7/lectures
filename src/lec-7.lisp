@@ -46,16 +46,40 @@
 		 (format t "~&Not yet implemented.~%")
 		 (main-menu)))
    (make-menu-item
-    :display "(Q)uit~%"
-    :shortcut "q"
-    :actions #'(lambda ()
-		 (format t "~&Goodbye")))
-   (make-menu-item
-    :display "(F)ind Student by Module"
+    :display "(F)ind Student by Module~%"
     :shortcut "f"
     :actions
     #'(lambda ()
-	(format t "~&Unknown input, kindly choose (a/b/c/d/e or q)?~%")
+	(format t "~&Not yet implemented~%")
+	(main-menu)))
+   (make-menu-item
+    :display "(Q)uit~%"
+    :shortcut "q"
+    :actions #'(lambda ()
+		 (format t "~&Goodbye")))))
+
+(defparameter *enroll-menu*
+  (vector
+   (make-menu-item
+    :display "~&Enroll by _ID: "
+    :shortcut "i"
+    :actions
+    #'(lambda ()
+	(format t "~&Not yet implemented.~%")
+	(enroll-students)))
+   (make-menu-item
+    :display "~&_Un-enrolled only: "
+    :shortcut "u"
+    :actions
+    #'(lambda ()
+	(format t "~&Not yet implemented.~%")
+	(enroll-students)))
+   (make-menu-item
+    :display "~&_Cancel?: "
+    :shortcut "c"
+    :actions
+    #'(lambda ()
+	(format t "~&Returning to main screen.~%")
 	(main-menu)))))
 
 (defun generate-menu (menu size)
@@ -81,17 +105,9 @@ appropriate event-handler as defined in the MENU."
   (generate-menu *menues* (length *menues*))
   (format t "~&Your input: ")
   (on-select #'event-handler (read-line) *menues*))
-
 	  
 (defun enroll-students ()
   "Enroll students to modules."
-  (format t "~&Enroll by ID, Un-enrolled only, or cancel?~%(i/u/x): ")
-  (let ((choice (read-line)))
-    (cond ((char= #\i (char choice 0))
-	   (error "Enroll by ID not yet implemented."))
-	  ((char= #\u (char choice 0))
-	   (error "Un-enrolled only not yet implemented."))
-	  ((char= #\x (char choice 0))
-	   (format t "~&Returning to main screen."))
-	  (t  (format t "~&Unknown choice")
-	      (enroll-students)))))
+  (format t "~&Students enrollment status~%")
+  (generate-menu *enroll-menu* (length *enroll-menu*))
+  (on-select #'event-handler (read-line) *enroll-menu*))
