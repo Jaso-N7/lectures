@@ -10,7 +10,8 @@ as I learn more.
 
 ** Usage
 
-See usage details specific to each Practical Session below.
+To load everything use: =(asdf:load-system "lectures")= or
+see usage details specific to each Practical Session below.
 
 ** Installation
 
