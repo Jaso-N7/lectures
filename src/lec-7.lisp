@@ -81,9 +81,12 @@
 	(format t "~&Returning to main screen.~%")
 	(main-menu)))))
 
-(defun generate-menu (menu size)
-  "Given the MENU and its SIZE, displays the menu items found in MENU."
-  (dotimes (m size)
+(defun get-main-menu () *menues*)
+(defun get-enroll-menu () *enroll-menu*)
+
+(defun generate-menu (menu)
+  "Displays the menu items found in MENU."
+  (dotimes (m (length menu))
     (format t (menu-item-display
 	       (svref menu m)))))
 
@@ -101,12 +104,12 @@ appropriate event-handler as defined in the MENU."
 
 (defun main-menu ()
   (format t "~&Welcome to the Student Directory:~%")
-  (generate-menu *menues* (length *menues*))
+  (generate-menu (get-main-menu))
   (format t "~&Your input: ")
-  (on-select #'event-handler (read-line) *menues*))
+  (on-select #'event-handler (read-line) (get-main-menu)))
 	  
 (defun enroll-students ()
   "Enroll students to modules."
   (format t "~&Students enrollment status~%")
-  (generate-menu *enroll-menu* (length *enroll-menu*))
-  (on-select #'event-handler (read-line) *enroll-menu*))
+  (generate-menu (get-enroll-menu))
+  (on-select #'event-handler (read-line) (get-enroll-menu)))
