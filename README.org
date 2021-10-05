@@ -47,18 +47,18 @@ Based on [[https://nicklevine.org/declarative/lectures/lectures/lecture-7.html][
 2. =(use-package :lectures-7)= and =(main-menu)=
 3. An onscreen menu will appear.
 
-*** TODO Lecture 8 [0/4]
+*** TODO Lecture 8 [2/4]
 
 *8.7* _Practical session / Suggested activity_
 
-+ [-] Hash-Table conversion
++ [X] Hash-Table conversion
   + [X] Convert 7.8 to store student records in a hash-table (accessible by name) rather than in a list.
-  + [ ] Write functions to add a new student,
-  + [ ] to find the record of a student with a given name,
-  + [ ] and to delete a student.
+  + [X] Write functions to add a new student,
+  + [X] to find the record of a student with a given name,
+  + [X] and to delete a student.
 + [ ] Marks
   + [ ] As before, write functions to name the three students who have the highest marks, or to spot which lecturer fails most of their students.
-+ [ ] Use return-from in a function to return the SID of any student who hasn't attmpted any modules at all.
++ [X] Use =return-from= in a function to return the SID of any student who hasn't attmpted any modules at all.
 + [ ] Comment on which data stucture was "best". [Define "best".] 
 
 ** Author
