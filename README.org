@@ -3,8 +3,7 @@
 
 * Lectures on Lisp
 
-I am only posting my take on the
-solution as part of my learning process. 
+I am only posting my take on the solution as part of my learning process. 
 
 This repo is also used as a milestone in my learning process where I can refine
 as I learn more. 
@@ -34,7 +33,8 @@ Based on [[https://nicklevine.org/declarative/lectures/lectures/lecture-7.html][
   + [X] Now design and define a structure for modules and
   + [ ] try enrolling students onto a module.
   + [ ] You can now write code to ask which modules a named student is enrolled for, or which students have enrolled for a named module.
-+ [ ] If time permits, find some way of recording marks for modules which students have already attempted.
++ [ ] Marks
+  + [ ] Find some way of recording marks for modules which students have already attempted.
   + [ ] Use reduce to find the total number of marks over all modules attempted by each student and hence the total marks obtained by the student cohort.
   + [ ] Use it again to count how many modules were attempted by the cohort, and hence give the average mark.
   + [ ] Name the three students who have the highest marks.
@@ -47,17 +47,19 @@ Based on [[https://nicklevine.org/declarative/lectures/lectures/lecture-7.html][
 2. =(use-package :lectures-7)= and =(main-menu)=
 3. An onscreen menu will appear.
 
-*** Lecture 8
+*** TODO Lecture 8 [0/4]
 
-8.7 Practical session / Suggested activity
+*8.7* _Practical session / Suggested activity_
 
-Convert last week's work to store student records in a hash-table (accessible by name) rather than in a list. Write functions to add a new student, to find the record of a student with a given name, and to delete a student.
-
-As before, write functions to name the three students who have the highest marks, or to spot which lecturer fails most of their students.
-
-Use return-from in a function to return the SID of any student who hasn't attmpted any modules at all.
-
-Comment on which data stucture was "best". [Define "best".] 
++ [-] Hash-Table conversion
+  + [X] Convert 7.8 to store student records in a hash-table (accessible by name) rather than in a list.
+  + [ ] Write functions to add a new student,
+  + [ ] to find the record of a student with a given name,
+  + [ ] and to delete a student.
++ [ ] Marks
+  + [ ] As before, write functions to name the three students who have the highest marks, or to spot which lecturer fails most of their students.
++ [ ] Use return-from in a function to return the SID of any student who hasn't attmpted any modules at all.
++ [ ] Comment on which data stucture was "best". [Define "best".] 
 
 ** Author
 
