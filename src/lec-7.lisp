@@ -43,8 +43,7 @@
     :display "(E)nroll students to Modules~%"
     :shortcut "e"
     :actions #'(lambda ()
-		 (format t "~&Not yet implemented.~%")
-		 (main-menu)))
+		 (enroll-students)))
    (make-menu-item
     :display "(F)ind Student by Module~%"
     :shortcut "f"
